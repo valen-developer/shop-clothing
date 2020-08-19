@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-.fadeIn{
+body {
+  background-color: white;
+}
+
+.fadeIn {
   animation-name: fadein;
   animation-duration: 1s;
 }
-@keyframes fadein{
-  from { opacity: 0; }
-  to { opacity: 100%; }
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
 }

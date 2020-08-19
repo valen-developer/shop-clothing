@@ -1,0 +1,29 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+}
+.card {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.card img {
+  height: 30rem;
+}
+@media only screen and (max-width: 800px) {
+  .card img {
+    height: auto;
+  }
+}
+.card-title {
+  text-align: center;
+  padding: 2rem;
+  font-size: 2rem;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.card-footer span {
+  font-size: 1.6rem;
+}
