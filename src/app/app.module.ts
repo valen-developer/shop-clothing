@@ -15,11 +15,12 @@ import { HomeComponent } from './dashboard/pages/home/home.component';
 import { ProtectedComponent } from './pages/protected.component';
 import { HomePublicComponent } from './pages/home-public/home-public.component';
 import { PublicComponent } from './pages/public.component';
-import { NavbarPublicComponent } from './pages/navbar-public/navbar-public.component';
+import { NavbarPublicComponent } from './pages/shared/navbar-public/navbar-public.component';
 import { JacketComponent } from './pages/jacket/jacket.component';
 import { ShoeComponent } from './pages/shoe/shoe.component';
 import { UserComponent } from './pages/user/user.component';
 import { CardComponent } from './pages/shared/card/card.component';
+import { ModalPassComponent } from './auth/modal-pass/modal-pass.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CardComponent } from './pages/shared/card/card.component';
     ShoeComponent,
     UserComponent,
     CardComponent,
+    ModalPassComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

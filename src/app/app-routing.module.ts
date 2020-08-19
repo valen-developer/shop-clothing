@@ -36,7 +36,7 @@ const routes: Routes = [
       { path: 'jacket', component: JacketComponent },
       { path: 'shoe', component: ShoeComponent },
       { path: 'user', component: UserComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'home' },
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
     ],
   },
   { path: 'login', component: LoginComponent },

@@ -13,4 +13,10 @@ export class LoginComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
   }
+
+  showModalRecoveryPass(){
+    const modal = document.getElementById('modalpass');
+    modal.style.display = 'block';
+
+  }
 }

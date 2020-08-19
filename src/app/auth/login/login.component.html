@@ -60,17 +60,24 @@
 
         <div class="row-evenly">
           <div class="text-center p-t-90">
-            <a class="txt1" href="#">
+            <a class="txt1 texto" (click)="showModalRecoveryPass()">
               ¿Olvidó su contraseña?
             </a>
           </div>
           <div class="text-center p-t-90">
-            <a class="txt1" routerLink="/register">
+            <a class="txt1 texto" routerLink="/register">
               Registrar
             </a>
           </div>
         </div>
       </form>
     </div>
+  </div>
+</div>
+
+<app-modal-pass class="modal fadeIn" id="modalpass"></app-modal-pass>
+<div class="modal-notify" id="modalnotify">
+  <div class="alert alert-success" id="modalnotifycontent" >
+    <strong>¡Perfecto!</strong> Revisa tu bandeja de entrada.
   </div>
 </div>

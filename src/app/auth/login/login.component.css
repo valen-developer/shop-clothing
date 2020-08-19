@@ -1,4 +1,39 @@
-.row-evenly{
+.row-evenly {
   display: flex;
   justify-content: space-evenly;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding: 3rem;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.texto {
+  color: rgba(255, 255, 255, 0.8) !important;
+  cursor: pointer;
+}
+.texto:hover {
+  color: rgba(255, 255, 255, 1) !important;
+}
+.modal-notify {
+  display: none;
+  position: absolute;
+  width: 20%;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+}
+.fadeOut {
+  animation-name: fadeout;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeout{
+  from { opacity: 100%; display: block; }
+  to { opacity: 0;  display: none; }
 }

@@ -1,0 +1,36 @@
+.modal--content {
+  margin: 0 auto;
+  width: max-content;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5rem;
+}
+.closed{
+  display: flex;
+  justify-content: end;
+}
+.modal--content span{
+  font-size: 2rem;
+  text-align: right;
+  color: grey;
+  cursor: pointer;
+}
+.modal--content input {
+  margin: 3rem 0 0.4rem 0;
+  color: black;
+  border-bottom: 2px solid black;
+  padding: 0 0.5rem;
+}
+.modal--content input::placeholder {
+  color: black;
+}
+.modal--content input:focus {
+  border-bottom: 2px solid black;
+}
+.modal--content button {
+  border-radius: 5px;
+  background-color: black;
+  padding: 0.3rem 2rem;
+  display: inline-block;
+  color: white;
+}

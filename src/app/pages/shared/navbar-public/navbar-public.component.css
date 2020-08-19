@@ -15,3 +15,16 @@
 .nav-item.active {
   border-bottom: 1px solid black;
 }
+.top{
+  justify-content: flex-end;
+}
+.top-container{
+  margin: 0.6rem 1rem;
+}
+.top-item{
+  margin: 0 0.7rem;
+  cursor: pointer;
+}
+.top-item:hover{
+  color: grey;
+}
