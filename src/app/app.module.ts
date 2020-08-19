@@ -11,9 +11,11 @@ import { ShoesComponent } from './dashboard/pages/edit/shoes/shoes.component';
 import { JacketsComponent } from './dashboard/pages/edit/jackets/jackets.component';
 import { UsersComponent } from './dashboard/pages/edit/users/users.component';
 import { UserProfileComponent } from './dashboard/pages/user-profile/user-profile.component';
+import { HomeComponent } from './dashboard/pages/home/home.component';
+import { ProtectedComponent } from './pages/protected.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, SidebarComponent, NavbarComponent, ShoesComponent, JacketsComponent, UsersComponent, UserProfileComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, SidebarComponent, NavbarComponent, ShoesComponent, JacketsComponent, UsersComponent, UserProfileComponent, HomeComponent, ProtectedComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

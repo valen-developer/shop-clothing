@@ -19,14 +19,28 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/app/auth/login/assets/fonts/iconic/css/material-design-iconic-font.min.css",
+              "src/app/auth/login/assets/vendor/animate/animate.css",
+              "src/app/auth/login/assets/vendor/css-hamburgers/hamburgers.min.css",
+              "src/app/auth/login/assets/vendor/animsition/css/animsition.min.css",
+              "src/app/auth/login/assets/vendor/select2/select2.min.css",
+              "src/app/auth/login/assets/vendor/daterangepicker/daterangepicker.css",
+              "src/app/auth/login/assets/css/util.css",
+              "src/app/auth/login/assets/css/main.css"
             ],
-            "scripts": []
+            "scripts": [
+
+              "src/app/auth/login/assets/vendor/animsition/js/animsition.min.js",
+              "src/app/auth/login/assets/vendor/bootstrap/js/popper.js",
+              "src/app/auth/login/assets/vendor/bootstrap/js/bootstrap.min.js",
+              "src/app/auth/login/assets/vendor/select2/select2.min.js",
+              "src/app/auth/login/assets/vendor/daterangepicker/daterangepicker.js",
+              "src/app/auth/login/assets/vendor/countdowntime/countdowntime.js",
+              "src/app/auth/login/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -83,13 +97,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },
@@ -101,9 +110,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -119,6 +126,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "clothing-shop-front"
 }
