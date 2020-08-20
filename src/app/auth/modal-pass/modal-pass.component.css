@@ -7,7 +7,7 @@
 }
 .closed{
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .modal--content span{
   font-size: 2rem;

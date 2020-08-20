@@ -1,6 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+
+
 body {
   background-color: white;
+}
+
+.colm{
+  display: flex;
+  flex-direction: column;
+}
+.colm-center{
+  align-items: center;
+}
+.colm-w10{
+  width: 100%;
+}
+.rows{
+  display: flex;
+}
+.rows-sbet{
+  justify-content: space-between;
+}
+.rows-w6{
+  width: 60%;
+}
+.rows-w8{
+  width: 80%;
 }
 
 .fadeIn {

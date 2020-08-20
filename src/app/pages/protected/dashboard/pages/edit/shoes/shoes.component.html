@@ -1,0 +1,54 @@
+<div class="colm colm-center colm-w10 fadeIn ">
+  <div class="rows rows-w6">
+    <button class="btn btn-primary btn-block" (click)="showModal('new')" >Añadir Producto</button>
+  </div>
+  <div class="rows rows-w8">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Foto</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Adidas Predator</th>
+          <td>2</td>
+          <td>53€</td>
+          <td><img src="../../../../../../../assets/img/nike.png" alt="" /></td>
+          <td>
+            <div class="rows">
+              <button class="btn btn-edit btn-block" (click)="showModal('edit')" >
+                <i class="far fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-block">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--Image modal-->
+<div class="modal fadeIn" id="modalProduct" >
+  <div class="modal--content">
+    <div class="rows rows-sbet" >
+      <h4>{{ modalTitle }}</h4>
+      <span (click)="hiddenModal()" >&times;</span>
+    </div>
+    <form >
+      <div class="colm">
+        <input type="text" placeholder="Nombre producto" class="form--item" />
+        <input type="number" placeholder="Cantidad" class="form--item" />
+        <input type="text" placeholder="Precio" class="form--item" >
+        <button class="btn btn-primary btn-block" >{{modalTitle}}</button>
+      </div>
+    </form>
+  </div>
+</div>
