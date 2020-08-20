@@ -1,6 +1,8 @@
-<div class="colm colm-center colm-w10 fadeIn ">
+<div class="colm colm-center colm-w10 fadeIn">
   <div class="rows rows-w6">
-    <button class="btn btn-primary btn-block" (click)="showModal('new')" >Añadir Producto</button>
+    <button class="btn btn-primary btn-block" (click)="showModal('new')">
+      Añadir Producto
+    </button>
   </div>
   <div class="rows rows-w8">
     <table class="table">
@@ -15,13 +17,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
-          <th>{{item.name}}</th>
-          <td>{{item.quantity}}</td>
-          <td>{{item.price}}€</td>
+          <th>{{ item.name }}</th>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price }}€</td>
           <td><img [src]="item.urlimage" alt="" /></td>
           <td>
             <div class="rows">
-              <button class="btn btn-edit btn-block" (click)="showModal('edit')" >
+              <button
+                class="btn btn-edit btn-block"
+                (click)="showModal('edit')"
+              >
                 <i class="far fa-edit"></i>
               </button>
               <button class="btn btn-danger btn-block">
@@ -36,18 +41,31 @@
 </div>
 
 <!--Image modal-->
-<div class="modal fadeIn" id="modalProduct" >
+<div class="modal fadeIn" id="modalProduct">
   <div class="modal--content">
-    <div class="rows rows-sbet" >
+    <div class="rows rows-sbet">
       <h4>{{ modalTitle }}</h4>
-      <span (click)="hiddenModal()" >&times;</span>
+      <span (click)="hiddenModal()">&times;</span>
     </div>
-    <form >
+    <form>
       <div class="colm">
         <input type="text" placeholder="Nombre producto" class="form--item" />
         <input type="number" placeholder="Cantidad" class="form--item" />
-        <input type="text" placeholder="Precio" class="form--item" >
-        <button class="btn btn-primary btn-block" >{{modalTitle}}</button>
+        <input type="text" placeholder="Precio" class="form--item" />
+        <div class="colm">
+          <div class="rows rows-center drop-container">
+            <img src="../../../../../../../assets/img/drop-images.png" alt="" />
+          </div>
+          <table class="table">
+            <thead class="thead-dark">
+              <th>Archivo</th>
+            </thead>
+            <tbody>
+              <td>Nombre</td>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary btn-block">{{ modalTitle }}</button>
       </div>
     </form>
   </div>

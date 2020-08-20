@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { ShoeService } from '../../../../../../services/products/shoe.service';
 
@@ -10,12 +11,17 @@ import { ShoeService } from '../../../../../../services/products/shoe.service';
 export class ShoesComponent implements OnInit {
   modalTitle: string = 'default';
   items: any[] = [];
+  form: FormGroup;
 
-  constructor(private shoeService: ShoeService) {}
+  constructor(private shoeService: ShoeService) {
+    this.setForm();
+  }
 
   ngOnInit(): void {
     this.getProducts();
   }
+
+  setForm() {}
 
   showModal(action) {
     if (action === 'new') {
@@ -35,7 +41,7 @@ export class ShoesComponent implements OnInit {
 
   async getProducts() {
     this.items = await this.shoeService.getShoes();
-    this.items.forEach((item)=>{
+    this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
     });
   }

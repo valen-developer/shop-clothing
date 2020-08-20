@@ -22,12 +22,13 @@
 }
 .modal--content {
   margin: 3rem auto;
-  width: max-content;
+  width: 50%;
   background-color: white;
   border-radius: 5px;
   padding: 2rem;
+  position: relative;
 }
-.modal--content span{
+.modal--content span {
   cursor: pointer;
 }
 .form--item {
@@ -44,4 +45,8 @@
 }
 .form--item::placeholder {
   color: black;
+}
+.drop-container {
+  border: 1px dotted grey;
+  margin: 0.5rem 0;
 }
