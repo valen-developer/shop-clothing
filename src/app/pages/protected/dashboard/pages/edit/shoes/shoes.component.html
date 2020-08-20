@@ -47,11 +47,36 @@
       <h4>{{ modalTitle }}</h4>
       <span (click)="hiddenModal()">&times;</span>
     </div>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="saveArticle()">
       <div class="colm">
-        <input type="text" placeholder="Nombre producto" class="form--item" />
-        <input type="number" placeholder="Cantidad" class="form--item" />
-        <input type="text" placeholder="Precio" class="form--item" />
+        <input
+          type="text"
+          placeholder="Nombre producto"
+          class="form--item"
+          formControlName="name"
+        />
+        <input
+          type="number"
+          placeholder="Cantidad"
+          class="form--item"
+          formControlName="quantity"
+        />
+        <input
+          type="text"
+          placeholder="Precio"
+          class="form--item"
+          formControlName="price"
+        />
+        <input
+          type="text"
+          placeholder="talla"
+          class="form--item"
+          formControlName="size"
+        />
+        <select formControlName="type">
+          <option value="shoe">Zapatilla</option>
+          <option value="jacket">Chándal</option>
+        </select>
         <div class="colm">
           <div class="rows rows-center drop-container">
             <img src="../../../../../../../assets/img/drop-images.png" alt="" />

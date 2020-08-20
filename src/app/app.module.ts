@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
 //Services
-import { ShoeService } from '../app/services/products/shoe.service';
-import { JacketService } from '../app/services/products/jacket.service';
+import { ProductsService } from '../app/services/products.service';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -26,8 +25,9 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     ProtectedModule,
     PublicModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
-  providers: [ShoeService, JacketService],
+  providers: [ProductsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

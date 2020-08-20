@@ -1,24 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ShoeService } from "../../../services/products/shoe.service";
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-home-public',
   templateUrl: './home-public.component.html',
-  styleUrls: ['./home-public.component.css']
+  styleUrls: ['./home-public.component.css'],
 })
 export class HomePublicComponent implements OnInit {
+  constructor(private productsService: ProductsService) {}
 
-  constructor(private shoeService: ShoeService) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  getShoes() {
+    this.productsService.getShoes();
   }
-
-
-  getShoes(){
-
-    this.shoeService.getShoes();
-
-  }
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { ShoeService } from '../../../../../../services/products/shoe.service';
+import { ProductsService } from '../../../../../../services/products.service';
 
 @Component({
   selector: 'app-shoes',
@@ -13,7 +13,10 @@ export class ShoesComponent implements OnInit {
   items: any[] = [];
   form: FormGroup;
 
-  constructor(private shoeService: ShoeService) {
+  constructor(
+    private productService: ProductsService,
+    private fb: FormBuilder
+  ) {
     this.setForm();
   }
 
@@ -21,7 +24,23 @@ export class ShoesComponent implements OnInit {
     this.getProducts();
   }
 
-  setForm() {}
+  // Create form to edit
+  setForm() {
+    this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      quantity: [1, Validators.required],
+      price: ['0', Validators.required],
+      size: ['42', Validators.required],
+      type: ['', Validators.required],
+    });
+  }
+
+  saveArticle() {
+    if (this.form.valid) {
+      console.log('Es valido');
+      this.productService.postArticle(this.form.value);
+    }
+  }
 
   showModal(action) {
     if (action === 'new') {
@@ -40,7 +59,7 @@ export class ShoesComponent implements OnInit {
   }
 
   async getProducts() {
-    this.items = await this.shoeService.getShoes();
+    this.items = await this.productService.getShoes();
     this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
     });

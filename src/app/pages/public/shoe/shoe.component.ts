@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ShoeService } from '../../../services/products/shoe.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-shoe',
@@ -10,13 +10,13 @@ import { ShoeService } from '../../../services/products/shoe.service';
 export class ShoeComponent implements OnInit {
   shoes: any[] = [];
 
-  constructor(private shoeService: ShoeService) {}
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     this.getShoes();
   }
 
   async getShoes() {
-    this.shoes = await this.shoeService.getShoes();
+    this.shoes = await this.productsService.getShoes();
   }
 }

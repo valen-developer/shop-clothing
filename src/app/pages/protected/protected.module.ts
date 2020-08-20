@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Components
 import { ProtectedComponent } from './protected.component';
@@ -32,6 +33,6 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     HomeComponent,
     ProtectedComponent,
   ],
-  imports: [CommonModule, AppRoutingModule],
+  imports: [CommonModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class ProtectedModule {}
