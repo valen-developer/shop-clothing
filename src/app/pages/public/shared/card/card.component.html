@@ -1,12 +1,14 @@
 <div class="card-container">
   <div class="card" style="width: 100%;">
-    <img src="../../../../assets/img/nike.png" class="card-img-top" alt="..." />
+    <img [src]="shoe.urlimage" class="card-img-top" alt="..." />
     <div class="card-body">
       <div class="card-footer">
-        <span><small>Marca modelo</small></span>
-        <span>54€</span>
+        <span
+          ><small>{{ shoe.name }}</small></span
+        >
+        <span>{{ shoe.price }}€</span>
       </div>
-      <span>Categoria</span>
+      <span>{{ shoe.type }}</span>
     </div>
   </div>
 </div>

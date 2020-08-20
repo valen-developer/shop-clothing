@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ShoeService } from '../../../../../../services/products/shoe.service';
+
 @Component({
   selector: 'app-shoes',
   templateUrl: './shoes.component.html',
@@ -7,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoesComponent implements OnInit {
   modalTitle: string = 'default';
+  items: any[] = [];
 
-  constructor() {}
+  constructor(private shoeService: ShoeService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getProducts();
+  }
 
   showModal(action) {
     if (action === 'new') {
@@ -23,10 +28,15 @@ export class ShoesComponent implements OnInit {
     modal.style.display = 'block';
   }
 
-  hiddenModal(){
-
+  hiddenModal() {
     const modal = document.getElementById('modalProduct');
     modal.style.display = 'none';
   }
 
+  async getProducts() {
+    this.items = await this.shoeService.getShoes();
+    this.items.forEach((item)=>{
+      item.urlimage = `http://localhost:3001/${item.urlimage}`;
+    });
+  }
 }

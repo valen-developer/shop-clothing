@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ShoeService } from "../../../services/products/shoe.service";
+
 @Component({
   selector: 'app-home-public',
   templateUrl: './home-public.component.html',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePublicComponent implements OnInit {
 
-  constructor() { }
+  constructor(private shoeService: ShoeService) { }
 
   ngOnInit(): void {
+  }
+
+
+  getShoes(){
+
+    this.shoeService.getShoes();
+
   }
 
 }
