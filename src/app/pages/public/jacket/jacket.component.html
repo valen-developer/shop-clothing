@@ -1,1 +1,8 @@
-<p>jacket works!</p>
+<div class="grid-container fadeIn">
+  <h3>Zapatillas</h3>
+  <hr />
+
+  <div class="grid">
+    <app-card *ngFor="let jacket of jackets" [shoe]="jacket"></app-card>
+  </div>
+</div>

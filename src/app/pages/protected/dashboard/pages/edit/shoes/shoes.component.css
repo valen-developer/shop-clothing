@@ -77,3 +77,21 @@
 
   text-align: center;
 }
+
+/*Modal delete confirm*/
+.modal-card {
+  margin: 5rem auto;
+  width: 20%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 2rem;
+  position: relative;
+  text-align: center;
+}
+.modal-card p {
+  font-size: 1.5rem;
+}
+.modal-card button {
+  margin: 1rem 0.5rem;
+  width: 100%;
+}

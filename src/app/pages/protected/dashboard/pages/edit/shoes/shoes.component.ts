@@ -15,6 +15,7 @@ export class ShoesComponent implements OnInit {
   overDrop = false;
   files: any[] = [];
   modalNotificationMessage = '';
+  private selectedProduct: any;
 
   constructor(
     private productService: ProductsService,
@@ -31,17 +32,37 @@ export class ShoesComponent implements OnInit {
   setForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      quantity: [1, Validators.required],
-      price: ['0', Validators.required],
-      size: ['42', Validators.required],
+      quantity: [null, Validators.required],
+      price: ['', Validators.required],
+      size: ['', Validators.required],
       type: ['', Validators.required],
     });
-
-    this.form.get('name').setValue('Un nuevo nombre');
   }
 
   // Connect to backend
-  async saveArticle() {
+  async updateProduct(item) {
+    console.log(this.selectedProduct);
+    let file;
+    if (this.files.length > 0) {
+      file = this.files[0];
+    } else {
+      file = null;
+    }
+    this.selectedProduct.name = this.form.value.name;
+    this.selectedProduct.quantity = this.form.value.quantity;
+    this.selectedProduct.price = this.form.value.price;
+    this.selectedProduct.size = this.form.value.size;
+
+    const resp = await this.productService.updateProduct(
+      this.selectedProduct,
+      file
+    );
+  }
+  async saveArticle(item) {
+    if (this.modalTitle === 'Editar Artículo') {
+      this.updateProduct(item);
+    }
+
     if (this.form.valid) {
       const resp: any = await this.productService.postArticle(
         this.form.value,
@@ -49,6 +70,12 @@ export class ShoesComponent implements OnInit {
       );
       this.showModalNotification(resp.ok);
       if (resp.ok) {
+        console.log(resp);
+        // resp.newProduct.urlimage =
+        // this.items.push(resp.newProduct);
+        setTimeout(() => {
+          this.getProducts();
+        }, 2000);
         this.form.reset();
         this.files = [];
       }
@@ -58,7 +85,23 @@ export class ShoesComponent implements OnInit {
     this.items = await this.productService.getAll();
     this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
+      console.log(item.urlimage);
     });
+  }
+  async deleteProduct() {
+    const resp = await this.productService.deleteProduct(
+      this.selectedProduct.id
+    );
+
+    let itemsAux = [];
+    this.items.forEach((item) => {
+      if (item.id !== this.selectedProduct.id) {
+        itemsAux.push(item);
+      }
+    });
+    this.items = itemsAux;
+
+    this.hiddenModalDelete();
   }
 
   //Drag-drop control
@@ -70,8 +113,10 @@ export class ShoesComponent implements OnInit {
   showModal(action, articule?) {
     if (action === 'new') {
       this.modalTitle = 'Nuevo Artículo';
+      this.form.reset();
     } else {
       this.modalTitle = 'Editar Artículo';
+      this.selectedProduct = articule;
       this.setValuesForm(articule);
     }
     const modal = document.getElementById('modalProduct');
@@ -112,5 +157,21 @@ export class ShoesComponent implements OnInit {
         modalNot.style.display = 'none';
       }, 1000);
     }, 2000);
+  }
+
+  //Modal delete control
+  showModalDelete(product) {
+    this.selectedProduct = product;
+
+    const modal = document.getElementById('modaldelete');
+    modal.style.display = 'block';
+  }
+  hiddenModalDelete() {
+    const modal = document.getElementById('modaldelete');
+    modal.classList.add('fadeOut');
+    setTimeout(() => {
+      modal.classList.remove('fadeOut');
+      modal.style.display = 'none';
+    }, 1000);
   }
 }

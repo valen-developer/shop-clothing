@@ -31,7 +31,10 @@
               >
                 <i class="far fa-edit"></i>
               </button>
-              <button class="btn btn-danger btn-block">
+              <button
+                class="btn btn-danger btn-block"
+                (click)="showModalDelete(item)"
+              >
                 <i class="fas fa-trash-alt"></i>
               </button>
             </div>
@@ -119,3 +122,14 @@
   id="modalnotification"
   [message]="modalNotificationMessage"
 ></app-modal-notification>
+
+<!--App Modal confirm delete-->
+<div class="modal" id="modaldelete">
+  <div class="modal-card">
+    <p>¿Desea borrar el registro?</p>
+    <div class="rows">
+      <button class="btn btn-danger" (click)="deleteProduct()">Sí</button>
+      <button class="btn btn-primary" (click)="hiddenModalDelete()">No</button>
+    </div>
+  </div>
+</div>
