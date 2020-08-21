@@ -28,12 +28,11 @@
   right: 2px;
   z-index: 1;
 }
-.fadeOut {
-  animation-name: fadeout;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-@keyframes fadeout{
-  from { opacity: 100%; display: block; }
-  to { opacity: 0;  display: none; }
+
+.go-home{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  cursor: pointer;
 }

@@ -12,6 +12,9 @@ export class ShoesComponent implements OnInit {
   modalTitle: string = 'default';
   items: any[] = [];
   form: FormGroup;
+  overDrop = false;
+  files: any[] = [];
+  modalNotificationMessage = '';
 
   constructor(
     private productService: ProductsService,
@@ -33,22 +36,44 @@ export class ShoesComponent implements OnInit {
       size: ['42', Validators.required],
       type: ['', Validators.required],
     });
+
+    this.form.get('name').setValue('Un nuevo nombre');
   }
 
-  saveArticle() {
+  // Connect to backend
+  async saveArticle() {
     if (this.form.valid) {
-      console.log('Es valido');
-      this.productService.postArticle(this.form.value);
+      const resp: any = await this.productService.postArticle(
+        this.form.value,
+        this.files[0]
+      );
+      this.showModalNotification(resp.ok);
+      if (resp.ok) {
+        this.form.reset();
+        this.files = [];
+      }
     }
   }
+  async getProducts() {
+    this.items = await this.productService.getAll();
+    this.items.forEach((item) => {
+      item.urlimage = `http://localhost:3001/${item.urlimage}`;
+    });
+  }
 
-  showModal(action) {
+  //Drag-drop control
+  dragEvent(event) {
+    this.overDrop = event;
+  }
+
+  // Modal control
+  showModal(action, articule?) {
     if (action === 'new') {
       this.modalTitle = 'Nuevo Artículo';
     } else {
       this.modalTitle = 'Editar Artículo';
+      this.setValuesForm(articule);
     }
-
     const modal = document.getElementById('modalProduct');
     modal.style.display = 'block';
   }
@@ -57,11 +82,35 @@ export class ShoesComponent implements OnInit {
     const modal = document.getElementById('modalProduct');
     modal.style.display = 'none';
   }
+  private setValuesForm(articule) {
+    this.form.get('name').setValue(articule.name);
+    this.form.get('quantity').setValue(articule.quantity);
+    this.form.get('price').setValue(articule.price);
+    this.form.get('size').setValue(articule.size);
+    this.form.get('type').setValue(articule.type);
+  }
 
-  async getProducts() {
-    this.items = await this.productService.getShoes();
-    this.items.forEach((item) => {
-      item.urlimage = `http://localhost:3001/${item.urlimage}`;
-    });
+  // Modal-notification control
+  showModalNotification(ok: boolean) {
+    const modalNot = document.getElementById('modalnotification');
+    if (ok) {
+      this.modalNotificationMessage =
+        'El artículo se ha guardado correctamente';
+      modalNot.style.backgroundColor = 'green';
+      modalNot.style.display = 'block';
+    } else {
+      this.modalNotificationMessage = 'No se ha podido guardar el articulo';
+      modalNot.style.backgroundColor = 'red';
+      modalNot.style.display = 'block';
+    }
+
+    setTimeout(() => {
+      modalNot.classList.add('fadeOut');
+
+      setTimeout(() => {
+        modalNot.classList.remove('fadeOut');
+        modalNot.style.display = 'none';
+      }, 1000);
+    }, 2000);
   }
 }

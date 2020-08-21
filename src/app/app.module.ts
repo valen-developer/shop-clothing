@@ -13,10 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { ProtectedModule } from './pages/protected/protected.module';
 import { PublicModule } from './pages/public/public.module';
-import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 @NgModule({
-  declarations: [AppComponent, NgDropFilesDirective],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -27,6 +26,7 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     ReactiveFormsModule,
     FormsModule,
   ],
+  exports: [],
   providers: [ProductsService],
   bootstrap: [AppComponent],
 })

@@ -42,3 +42,12 @@ body {
     opacity: 100%;
   }
 }
+.fadeOut {
+  animation-name: fadeout;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeout{
+  from { opacity: 100%; display: block; }
+  to { opacity: 0;  display: none; }
+}

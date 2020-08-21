@@ -1,0 +1,14 @@
+.go-home{
+  width: max-content;
+  padding: 0.5rem 2rem;
+  border-radius: 5px;
+  text-align: center;
+  background-color: white;
+  color: black;
+}
+.go-home:hover{
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.go-home p{
+  color: inherit;
+}

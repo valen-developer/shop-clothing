@@ -1,0 +1,9 @@
+.modal--content {
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  background-color: inherit;
+  color: white;
+}
+.modal--content p {
+  color: inherit;
+}

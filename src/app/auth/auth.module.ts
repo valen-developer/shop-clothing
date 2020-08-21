@@ -8,10 +8,11 @@ import { RegisterComponent } from './register/register.component';
 
 //Routing
 import { AppRoutingModule } from '../app-routing.module';
+import { GoHomeComponent } from './shared/go-home/go-home.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ModalPassComponent],
-  exports: [LoginComponent, RegisterComponent, ModalPassComponent],
+  declarations: [LoginComponent, RegisterComponent, ModalPassComponent, GoHomeComponent],
+  exports: [LoginComponent, RegisterComponent, ModalPassComponent, GoHomeComponent],
   imports: [CommonModule, AppRoutingModule],
 })
 export class AuthModule {}

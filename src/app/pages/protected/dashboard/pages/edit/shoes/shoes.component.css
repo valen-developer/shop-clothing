@@ -31,6 +31,9 @@
 .modal--content span {
   cursor: pointer;
 }
+.form {
+  margin-top: 2rem;
+}
 .form--item {
   margin: 1rem 0;
   border-bottom: 2px solid black;
@@ -47,6 +50,30 @@
   color: black;
 }
 .drop-container {
-  border: 1px dotted grey;
+  border: 2px dotted grey;
   margin: 0.5rem 0;
+}
+.file-over {
+  border-color: blue;
+}
+.form select {
+  border: none;
+  margin: 0.6rem 0;
+  padding: 0.3em;
+  border-radius: 5px;
+}
+.form select:focus {
+  border: 2px solid purple;
+}
+
+/* Modal notification */
+.modal-notification {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  margin: 0 auto;
+  right: 10px;
+  top: 50px;
+
+  text-align: center;
 }

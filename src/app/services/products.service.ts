@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +7,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class ProductsService {
   private urlBase = 'http://localhost:3001/api';
   constructor(private http: HttpClient) {}
+
+  async getAll() {
+    const resp: any = await this.http
+      .get(`${this.urlBase}/products/all`)
+      .toPromise();
+    return resp.data.data;
+  }
 
   async getShoes(): Promise<any[]> {
     console.log('Entra');
@@ -20,8 +27,16 @@ export class ProductsService {
     return resp.data;
   }
 
-  async postArticle(article) {
+  async postArticle(article, file) {
+    const headers = new HttpHeaders().set(
+      'Content-Type',
+      'multipart/form-data'
+    );
+    console.log(article);
+    console.log(file);
+
     const formData = new FormData();
+    formData.append('file', file);
     formData.append('name', article.name);
     formData.append('type', article.type);
     formData.append('size', article.size);
@@ -29,9 +44,13 @@ export class ProductsService {
     formData.append('price', article.price);
     formData.append('quantity', article.quantity);
 
-    const resp = await this.http
-      .post(`${this.urlBase}/products`, formData)
-      .toPromise();
-    console.log(resp);
+    try {
+      const resp: any = await this.http
+        .post(`${this.urlBase}/products`, formData)
+        .toPromise();
+      return { ok: true, data: resp.data };
+    } catch (e) {
+      return { ok: false, error: e };
+    }
   }
 }
