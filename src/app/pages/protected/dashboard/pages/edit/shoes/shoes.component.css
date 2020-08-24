@@ -115,3 +115,8 @@
   margin: 1rem 0.5rem;
   width: 100%;
 }
+
+.grid-sizes {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}

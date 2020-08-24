@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { ProductsService } from '../../../../../../services/products.service';
 
@@ -24,6 +24,10 @@ export class ShoesComponent implements OnInit {
     this.setForm();
   }
 
+  get sizes() {
+    return this.form.get('sizes') as FormArray;
+  }
+
   ngOnInit(): void {
     this.getProducts();
   }
@@ -34,10 +38,10 @@ export class ShoesComponent implements OnInit {
       name: ['', [Validators.required]],
       quantity: [null, Validators.required],
       price: ['', Validators.required],
-      size: ['', Validators.required],
       type: ['', Validators.required],
       ofert: ['NO'],
       ofert_price: [null],
+      sizes: [this.fb.array(['uno', 'dos', '3'])],
     });
   }
 

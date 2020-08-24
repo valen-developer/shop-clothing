@@ -38,7 +38,7 @@ export class ProductPageComponent implements OnInit {
 
   async getProduct() {
     const resp: any = await this.productsService.getProductById(this.productID);
-    console.log(resp.data.data[0]);
+    console.log(resp);
     this.product = resp.data.data[0];
   }
 

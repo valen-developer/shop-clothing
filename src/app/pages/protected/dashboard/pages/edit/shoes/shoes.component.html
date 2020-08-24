@@ -91,13 +91,22 @@
           placeholder="Precio oferta"
           formControlName="ofert_price"
         />
-        <label for="size">Talla</label>
-        <input
-          type="text"
-          placeholder="talla"
-          class="form--item"
-          formControlName="size"
-        />
+        <label>Tallas</label>
+        <div class="grid-sizes">
+          <div
+            *ngFor="let size of sizes.controls; index as i"
+            class="grid-sizes--item"
+            formArrayName="size"
+          >
+            <label for="size">EU {{ size }}</label>
+            <input
+              type="checkbox"
+              name="size"
+              id="{{ i }}"
+              formControlName="{{ i }}"
+            />
+          </div>
+        </div>
         <label for="type">Tipo de producto</label>
         <select formControlName="type">
           <option value="shoe">Zapatilla</option>
