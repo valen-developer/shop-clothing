@@ -9,9 +9,9 @@
       <thead class="thead-dark">
         <tr>
           <th>Nombre Producto</th>
-          <th>Cantidad</th>
-          <th>Tipo</th>
-          <th>Precio</th>
+          <th class="screen-tab">Cantidad</th>
+          <th class="screen-tab">Tipo</th>
+          <th class="screen-tab">Precio</th>
           <th>Foto</th>
           <th>Accion</th>
         </tr>
@@ -19,9 +19,9 @@
       <tbody>
         <tr *ngFor="let item of items">
           <th>{{ item.name }}</th>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.type }}</td>
-          <td>{{ item.price }}€</td>
+          <td class="screen-tab">{{ item.quantity }}</td>
+          <td class="screen-tab">{{ item.type }}</td>
+          <td class="screen-tab">{{ item.price }}€</td>
           <td><img [src]="item.urlimage" alt="" /></td>
           <td>
             <div class="rows">
@@ -72,12 +72,24 @@
           id="quantity"
           formControlName="quantity"
         />
-        <label for="price">Price</label>
+        <label for="price">Precio original</label>
         <input
           type="text"
           placeholder="Precio"
           class="form--item"
           formControlName="price"
+        />
+        <label>¿Está en oferta?</label>
+        <select name="ofert" id="ofert" formControlName="ofert"
+          ><option value="true">SI</option
+          ><option value="false">NO</option></select
+        >
+        <label>Precio oferta</label>
+        <input
+          type="text"
+          class="form--item"
+          placeholder="Precio oferta"
+          formControlName="ofert_price"
         />
         <label for="size">Talla</label>
         <input
@@ -124,7 +136,7 @@
 ></app-modal-notification>
 
 <!--App Modal confirm delete-->
-<div class="modal" id="modaldelete">
+<div class="modal fadeIn" id="modaldelete">
   <div class="modal-card">
     <p>¿Desea borrar el registro?</p>
     <div class="rows">

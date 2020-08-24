@@ -4,22 +4,32 @@
   background-color: white;
   border-radius: 5px;
   padding: 5rem;
+  max-width: 90%;
 }
-.closed{
+.closed {
   display: flex;
   justify-content: flex-end;
 }
-.modal--content span{
+.modal--content span {
   font-size: 2rem;
   text-align: right;
   color: grey;
   cursor: pointer;
 }
+
 .modal--content input {
   margin: 3rem 0 0.4rem 0;
   color: black;
   border-bottom: 2px solid black;
   padding: 0 0.5rem;
+}
+@media only screen and (max-width: 600px) {
+  .modal--content {
+    padding: 10px;
+  }
+  .modal--content input {
+    max-width: 90%;
+  }
 }
 .modal--content input::placeholder {
   color: black;

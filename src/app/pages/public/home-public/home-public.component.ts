@@ -8,11 +8,18 @@ import { ProductsService } from '../../../services/products.service';
   styleUrls: ['./home-public.component.css'],
 })
 export class HomePublicComponent implements OnInit {
+  items: any[] = [];
+
   constructor(private productsService: ProductsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getProducts();
+  }
 
-  getShoes() {
-    this.productsService.getShoes();
+  async getProducts() {
+    const itemsAux = await this.productsService.getAll();
+    itemsAux.forEach((item) => {
+      item.ofert === 'true' ? this.items.push(item) : null;
+    });
   }
 }

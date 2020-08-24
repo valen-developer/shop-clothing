@@ -36,15 +36,17 @@ export class ShoesComponent implements OnInit {
       price: ['', Validators.required],
       size: ['', Validators.required],
       type: ['', Validators.required],
+      ofert: ['NO'],
+      ofert_price: [null],
     });
   }
 
   // Connect to backend
-  async updateProduct(item) {
-    console.log(this.selectedProduct);
+  async updateProduct() {
     let file;
     if (this.files.length > 0) {
-      file = this.files[0];
+      console.log('Entra archivos');
+      file = this.files;
     } else {
       file = null;
     }
@@ -53,26 +55,36 @@ export class ShoesComponent implements OnInit {
     this.selectedProduct.price = this.form.value.price;
     this.selectedProduct.size = this.form.value.size;
 
-    const resp = await this.productService.updateProduct(
+    const resp: any = await this.productService.updateProduct(
       this.selectedProduct,
       file
     );
+
+    this.hiddenModal();
+    setTimeout(() => {
+      this.getProducts();
+    }, 2000);
+
+    return resp;
   }
-  async saveArticle(item) {
-    if (this.modalTitle === 'Editar Artículo') {
-      this.updateProduct(item);
+
+  async saveArticle() {
+    console.log(this.form.value);
+    if (this.modalTitle === 'Editar Artículo' && this.form.valid) {
+      const resp: any = await this.updateProduct();
+      this.showModalNotification(resp.ok);
+      return;
     }
+
+    console.log(this.files);
 
     if (this.form.valid) {
       const resp: any = await this.productService.postArticle(
         this.form.value,
-        this.files[0]
+        this.files
       );
       this.showModalNotification(resp.ok);
       if (resp.ok) {
-        console.log(resp);
-        // resp.newProduct.urlimage =
-        // this.items.push(resp.newProduct);
         setTimeout(() => {
           this.getProducts();
         }, 2000);
@@ -85,13 +97,10 @@ export class ShoesComponent implements OnInit {
     this.items = await this.productService.getAll();
     this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
-      console.log(item.urlimage);
     });
   }
   async deleteProduct() {
-    const resp = await this.productService.deleteProduct(
-      this.selectedProduct.id
-    );
+    const resp = await this.productService.deleteProduct(this.selectedProduct);
 
     let itemsAux = [];
     this.items.forEach((item) => {
@@ -110,14 +119,14 @@ export class ShoesComponent implements OnInit {
   }
 
   // Modal control
-  showModal(action, articule?) {
+  showModal(action, article?) {
     if (action === 'new') {
       this.modalTitle = 'Nuevo Artículo';
       this.form.reset();
     } else {
       this.modalTitle = 'Editar Artículo';
-      this.selectedProduct = articule;
-      this.setValuesForm(articule);
+      this.selectedProduct = article;
+      this.setValuesForm(article);
     }
     const modal = document.getElementById('modalProduct');
     modal.style.display = 'block';
@@ -125,7 +134,11 @@ export class ShoesComponent implements OnInit {
 
   hiddenModal() {
     const modal = document.getElementById('modalProduct');
-    modal.style.display = 'none';
+    modal.classList.add('fadeOut');
+    setTimeout(() => {
+      modal.classList.remove('fadeOut');
+      modal.style.display = 'none';
+    }, 1000);
   }
   private setValuesForm(articule) {
     this.form.get('name').setValue(articule.name);
@@ -138,6 +151,7 @@ export class ShoesComponent implements OnInit {
   // Modal-notification control
   showModalNotification(ok: boolean) {
     const modalNot = document.getElementById('modalnotification');
+
     if (ok) {
       this.modalNotificationMessage =
         'El artículo se ha guardado correctamente';

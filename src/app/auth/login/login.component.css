@@ -13,6 +13,11 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
 }
+@media only screen and (max-width: 600px) {
+  .modal {
+    padding: 10px;
+  }
+}
 .texto {
   color: rgba(255, 255, 255, 0.8) !important;
   cursor: pointer;
@@ -28,8 +33,13 @@
   right: 2px;
   z-index: 1;
 }
+@media only screen and (max-width: 600px) {
+  .modal-notify {
+    width: 80%;
+  }
+}
 
-.go-home{
+.go-home {
   position: fixed;
   top: 10px;
   left: 10px;

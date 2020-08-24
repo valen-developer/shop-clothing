@@ -20,6 +20,9 @@ body {
 .rows-sbet {
   justify-content: space-between;
 }
+.rows-sevenly {
+  justify-content: space-evenly;
+}
 .rows-center {
   justify-content: center;
 }
@@ -47,7 +50,13 @@ body {
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeout{
-  from { opacity: 100%; display: block; }
-  to { opacity: 0;  display: none; }
+@keyframes fadeout {
+  from {
+    opacity: 100%;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
 }

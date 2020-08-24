@@ -15,6 +15,28 @@ export class ProductsService {
     return resp.data.data;
   }
 
+  async getProductById(id) {
+    const params = new HttpParams().set('id', id);
+
+    const resp = await this.http
+      .get(`${this.urlBase}/product`, { params })
+      .toPromise();
+
+    return resp;
+  }
+
+  async getImagesById(id) {
+    const params = new HttpParams().set('id', id);
+
+    const resp: any = await this.http
+      .get(`${this.urlBase}/images`, {
+        params,
+      })
+      .toPromise();
+
+    return resp;
+  }
+
   async getShoes(): Promise<any[]> {
     const params = new HttpParams().set('type', 'shoe');
     const resp: any = await this.http
@@ -35,20 +57,23 @@ export class ProductsService {
     return resp.data;
   }
 
-  async postArticle(article, file) {
-    const headers = new HttpHeaders().set(
-      'Content-Type',
-      'multipart/form-data'
-    );
-
+  async postArticle(article, files) {
     const formData = new FormData();
-    formData.append('file', file);
+
+    // Set files
+    let i = 1;
+    files.forEach((file) => {
+      formData.append(`file`, file);
+      i++;
+    });
+    formData.append('fileLength', (i - 1).toString());
     formData.append('name', article.name);
     formData.append('type', article.type);
     formData.append('size', article.size);
     formData.append('size_cm', '43');
     formData.append('price', article.price);
     formData.append('quantity', article.quantity);
+    formData.append('ofert', article.ofert);
 
     try {
       const resp: any = await this.http
@@ -62,10 +87,17 @@ export class ProductsService {
     }
   }
 
-  async updateProduct(article, file) {
+  async updateProduct(article, files) {
+    console.log('Actualizando');
+
     const formData = new FormData();
-    if (file) {
-      formData.append('file', file);
+    if (files) {
+      let i = 1;
+      files.forEach((file) => {
+        formData.append(`file`, file);
+        i++;
+      });
+      formData.append('fileLength', (i - 1).toString());
     }
     formData.append('id', article.id);
     formData.append('name', article.name);
@@ -74,14 +106,22 @@ export class ProductsService {
     formData.append('size_cm', '43');
     formData.append('price', article.price);
     formData.append('quantity', article.quantity);
-
-    const resp: any = await this.http
-      .put(`${this.urlBase}/products`, formData)
-      .toPromise();
+    formData.append('urlimage', article.urlimage);
+    try {
+      const resp: any = await this.http
+        .put(`${this.urlBase}/products`, formData)
+        .toPromise();
+      return resp.data;
+    } catch (e) {
+      return { ok: false, error: e };
+    }
   }
 
-  async deleteProduct(id) {
-    const params = new HttpParams().set('id', id);
+  async deleteProduct(product) {
+    const params = new HttpParams()
+      .set('id', product.id)
+      .set('name', product.name)
+      .set('type', product.type);
 
     try {
       const resp: any = await this.http

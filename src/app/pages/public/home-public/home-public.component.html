@@ -1,19 +1,11 @@
 <div class="grid-container fadeIn">
   <h3>Ofertas</h3>
   <hr />
-  <button (click)="getShoes()" >Obtener</button>
+
   <div class="grid">
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
+    <app-card *ngFor="let item of items" [shoe]="item"></app-card>
   </div>
   <h3>Novedades</h3>
   <hr />
-  <div class="grid">
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-  </div>
+  <div class="grid"></div>
 </div>

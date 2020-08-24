@@ -1,4 +1,4 @@
-<div class="card-container">
+<div class="card-container" (click)="routerProduct()">
   <div class="card" style="width: 100%;">
     <img [src]="shoe.urlimage" class="card-img-top" alt="..." />
     <div class="card-body">
@@ -6,7 +6,10 @@
         <span
           ><small>{{ shoe.name }}</small></span
         >
-        <span>{{ shoe.price }}€</span>
+        <div class="rows price">
+          <span [ngClass]="{ ofert: shoe.ofert }">{{ shoe.price }}€</span>
+          <span *ngIf="shoe.ofert">{{ shoe.ofert_price }}€</span>
+        </div>
       </div>
       <span>{{ shoe.type }}</span>
     </div>

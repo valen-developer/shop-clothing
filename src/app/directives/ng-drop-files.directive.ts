@@ -35,10 +35,10 @@ export class NgDropFilesDirective {
     this.extractFiles(transfer.files);
   }
 
-  private extractFiles(fileList: FileList) {
-    if (!this.onlyOne(this.files) && this.isImg(fileList[0].type)) {
-      this.files.push(fileList[0]);
-    }
+  private extractFiles(fileList: []) {
+    Array.from(fileList).forEach((file) => {
+      this.files.push(file);
+    });
   }
 
   // Compatibility with diferent browsers

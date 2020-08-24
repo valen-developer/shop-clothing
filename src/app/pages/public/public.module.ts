@@ -12,6 +12,7 @@ import { UserComponent } from './user/user.component';
 
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ShoeComponent,
     UserComponent,
     CardComponent,
+    ProductPageComponent,
   ],
   exports: [
     PublicComponent,
@@ -31,6 +33,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ShoeComponent,
     UserComponent,
     CardComponent,
+    ProductPageComponent,
   ],
   imports: [CommonModule, AppRoutingModule],
 })

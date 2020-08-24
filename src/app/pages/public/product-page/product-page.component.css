@@ -1,0 +1,37 @@
+.main-container {
+  margin: 4rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px 2px;
+  margin: 2rem 6rem;
+}
+.img-container {
+  max-width: 200px;
+}
+.grid img {
+  max-width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.grid-grow {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  max-width: 400px;
+}
+.rows-center {
+  width: 50%;
+}
+
+.title {
+  justify-content: space-evenly;
+  align-items: center;
+}
+.title p {
+  margin: 0 2rem;
+  font-size: 1.5rem;
+}
