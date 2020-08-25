@@ -118,5 +118,19 @@
 
 .grid-sizes {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+
+.number-size{
+  width: 40px;
+  background-color: purple;
+  color: white;
+  border-bottom: 1px solid black;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 2px;
+  text-align: center;
+
 }

@@ -1,3 +1,5 @@
+import { FormatWidth } from '@angular/common';
+import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
@@ -12,6 +14,7 @@ export class ShoesComponent implements OnInit {
   modalTitle: string = 'default';
   items: any[] = [];
   form: FormGroup;
+  formSizes: FormGroup;
   overDrop = false;
   files: any[] = [];
   modalNotificationMessage = '';
@@ -24,13 +27,19 @@ export class ShoesComponent implements OnInit {
     this.setForm();
   }
 
+  //getters
   get sizes() {
-    return this.form.get('sizes') as FormArray;
+    return this.formSizes.get('sizes') as FormArray;
+  }
+  get sizesQuantity() {
+    return this.formSizes.get('quantity') as FormArray;
   }
 
   ngOnInit(): void {
     this.getProducts();
   }
+
+  /* Control of forms */
 
   // Create form to edit
   setForm() {
@@ -41,11 +50,55 @@ export class ShoesComponent implements OnInit {
       type: ['', Validators.required],
       ofert: ['NO'],
       ofert_price: [null],
-      sizes: [this.fb.array(['uno', 'dos', '3'])],
+    });
+
+    this.formSizes = this.fb.group({
+      sizes: this.fb.array([[true], [true], [true], [true], [true], [true]]),
+      quantity: this.fb.array([['1'], ['1'], ['1'], ['1'], ['1'], ['1']]),
+    });
+  }
+  private setValuesForm(articule) {
+    this.form.get('name').setValue(articule.name);
+    this.form.get('quantity').setValue(articule.quantity);
+    this.form.get('price').setValue(articule.price);
+    this.form.get('size').setValue(articule.size);
+    this.form.get('type').setValue(articule.type);
+  }
+  //End control of forms
+
+  // Connect to backend
+
+  async getProducts() {
+    this.items = await this.productService.getAll();
+    this.items.forEach((item) => {
+      item.urlimage = `http://localhost:3001/${item.urlimage}`;
     });
   }
 
-  // Connect to backend
+  async saveArticle() {
+    console.log(this.form.value);
+    if (this.modalTitle === 'Editar Artículo' && this.form.valid) {
+      const resp: any = await this.updateProduct();
+      this.showModalNotification(resp.ok);
+      return;
+    }
+
+    if (this.form.valid) {
+      const resp: any = await this.productService.postArticle(
+        this.form.value,
+        this.files
+      );
+      this.showModalNotification(resp.ok);
+      if (resp.ok) {
+        setTimeout(() => {
+          this.getProducts();
+        }, 2000);
+        this.form.reset();
+        this.files = [];
+      }
+    }
+  }
+
   async updateProduct() {
     let file;
     if (this.files.length > 0) {
@@ -72,37 +125,6 @@ export class ShoesComponent implements OnInit {
     return resp;
   }
 
-  async saveArticle() {
-    console.log(this.form.value);
-    if (this.modalTitle === 'Editar Artículo' && this.form.valid) {
-      const resp: any = await this.updateProduct();
-      this.showModalNotification(resp.ok);
-      return;
-    }
-
-    console.log(this.files);
-
-    if (this.form.valid) {
-      const resp: any = await this.productService.postArticle(
-        this.form.value,
-        this.files
-      );
-      this.showModalNotification(resp.ok);
-      if (resp.ok) {
-        setTimeout(() => {
-          this.getProducts();
-        }, 2000);
-        this.form.reset();
-        this.files = [];
-      }
-    }
-  }
-  async getProducts() {
-    this.items = await this.productService.getAll();
-    this.items.forEach((item) => {
-      item.urlimage = `http://localhost:3001/${item.urlimage}`;
-    });
-  }
   async deleteProduct() {
     const resp = await this.productService.deleteProduct(this.selectedProduct);
 
@@ -116,41 +138,14 @@ export class ShoesComponent implements OnInit {
 
     this.hiddenModalDelete();
   }
+  //End connect to backend
 
   //Drag-drop control
   dragEvent(event) {
     this.overDrop = event;
   }
 
-  // Modal control
-  showModal(action, article?) {
-    if (action === 'new') {
-      this.modalTitle = 'Nuevo Artículo';
-      this.form.reset();
-    } else {
-      this.modalTitle = 'Editar Artículo';
-      this.selectedProduct = article;
-      this.setValuesForm(article);
-    }
-    const modal = document.getElementById('modalProduct');
-    modal.style.display = 'block';
-  }
-
-  hiddenModal() {
-    const modal = document.getElementById('modalProduct');
-    modal.classList.add('fadeOut');
-    setTimeout(() => {
-      modal.classList.remove('fadeOut');
-      modal.style.display = 'none';
-    }, 1000);
-  }
-  private setValuesForm(articule) {
-    this.form.get('name').setValue(articule.name);
-    this.form.get('quantity').setValue(articule.quantity);
-    this.form.get('price').setValue(articule.price);
-    this.form.get('size').setValue(articule.size);
-    this.form.get('type').setValue(articule.type);
-  }
+  /* Modals  */
 
   // Modal-notification control
   showModalNotification(ok: boolean) {
@@ -175,6 +170,29 @@ export class ShoesComponent implements OnInit {
         modalNot.style.display = 'none';
       }, 1000);
     }, 2000);
+  }
+
+  // Modal control
+  showModal(action, article?) {
+    if (action === 'new') {
+      this.modalTitle = 'Nuevo Artículo';
+      this.form.reset();
+    } else {
+      this.modalTitle = 'Editar Artículo';
+      this.selectedProduct = article;
+      this.setValuesForm(article);
+    }
+    const modal = document.getElementById('modalProduct');
+    modal.style.display = 'block';
+  }
+
+  hiddenModal() {
+    const modal = document.getElementById('modalProduct');
+    modal.classList.add('fadeOut');
+    setTimeout(() => {
+      modal.classList.remove('fadeOut');
+      modal.style.display = 'none';
+    }, 1000);
   }
 
   //Modal delete control

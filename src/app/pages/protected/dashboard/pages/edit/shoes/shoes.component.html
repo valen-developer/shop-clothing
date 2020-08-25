@@ -63,15 +63,7 @@
           id="name"
           formControlName="name"
         />
-        <label for="quantity">Cantidad</label>
-        <input
-          type="number"
-          placeholder="Cantidad"
-          class="form--item"
-          name="quantity"
-          id="quantity"
-          formControlName="quantity"
-        />
+
         <label for="price">Precio original</label>
         <input
           type="text"
@@ -91,22 +83,34 @@
           placeholder="Precio oferta"
           formControlName="ofert_price"
         />
-        <label>Tallas</label>
-        <div class="grid-sizes">
-          <div
-            *ngFor="let size of sizes.controls; index as i"
-            class="grid-sizes--item"
-            formArrayName="size"
-          >
-            <label for="size">EU {{ size }}</label>
-            <input
-              type="checkbox"
-              name="size"
-              id="{{ i }}"
-              formControlName="{{ i }}"
-            />
+        <form [formGroup]="formSizes">
+          <div formArrayName="sizes">
+            <label>Tallas</label>
+            <div class="grid-sizes">
+              <div
+                *ngFor="let size of sizes.controls; index as i"
+                class="grid-sizes--item"
+              >
+                <label [for]="i">EU {{ 39 + i }}</label>
+                <div class="rows">
+                  <input
+                    type="checkbox"
+                    name="size"
+                    id="{{ i }}"
+                    [formControlName]="i"
+                  />
+
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          <input
+                    type="number"
+                    *ngIf="size.value"
+                    class="number-size"
+                    formControlName="sizesQuantity.controls[i]"
+                  />
+        </form>
         <label for="type">Tipo de producto</label>
         <select formControlName="type">
           <option value="shoe">Zapatilla</option>
