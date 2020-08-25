@@ -9,10 +9,19 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   async getAll() {
-    const resp: any = await this.http
+    const dataProducts: any = await this.http
       .get(`${this.urlBase}/products/all`)
       .toPromise();
-    return resp.data.data;
+    const id = dataProducts.data.data.id;
+
+    const paramsSize = new HttpParams().set('id', id);
+    const dataSizes: any = await this.http.get(`${this.urlBase}/sizes`, {
+      params: paramsSize,
+    });
+
+    const data: any = { product: dataProducts.data.data, sizes: dataSizes.data };
+
+    return data;
   }
 
   async getProductById(id) {

@@ -1,9 +1,8 @@
-import { FormatWidth } from '@angular/common';
-import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { ProductsService } from '../../../../../../services/products.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-shoes',
@@ -14,7 +13,7 @@ export class ShoesComponent implements OnInit {
   modalTitle: string = 'default';
   items: any[] = [];
   form: FormGroup;
-  formSizes: FormGroup;
+
   overDrop = false;
   files: any[] = [];
   modalNotificationMessage = '';
@@ -29,10 +28,11 @@ export class ShoesComponent implements OnInit {
 
   //getters
   get sizes() {
-    return this.formSizes.get('sizes') as FormArray;
+    return this.form.get('sizes') as FormArray;
   }
-  get sizesQuantity() {
-    return this.formSizes.get('quantity') as FormArray;
+  get quantityControl() {
+    let quantityArray = this.form.get('quantity') as FormArray;
+    return quantityArray.controls;
   }
 
   ngOnInit(): void {
@@ -45,16 +45,20 @@ export class ShoesComponent implements OnInit {
   setForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      quantity: [null, Validators.required],
       price: ['', Validators.required],
       type: ['', Validators.required],
       ofert: ['NO'],
       ofert_price: [null],
-    });
-
-    this.formSizes = this.fb.group({
-      sizes: this.fb.array([[true], [true], [true], [true], [true], [true]]),
-      quantity: this.fb.array([['1'], ['1'], ['1'], ['1'], ['1'], ['1']]),
+      stock: [true],
+      sizes: this.fb.array([
+        [true],
+        [true],
+        [true],
+        [true],
+        [true],
+        [true],
+        [true],
+      ]),
     });
   }
   private setValuesForm(articule) {
@@ -69,7 +73,7 @@ export class ShoesComponent implements OnInit {
   // Connect to backend
 
   async getProducts() {
-    this.items = await this.productService.getAll();
+    this.items =  (await this.productService.getAll()).product;
     this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
     });
@@ -110,7 +114,7 @@ export class ShoesComponent implements OnInit {
     this.selectedProduct.name = this.form.value.name;
     this.selectedProduct.quantity = this.form.value.quantity;
     this.selectedProduct.price = this.form.value.price;
-    this.selectedProduct.size = this.form.value.size;
+    this.selectedProduct.sizes = this.form.value.sizes;
 
     const resp: any = await this.productService.updateProduct(
       this.selectedProduct,

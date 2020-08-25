@@ -72,10 +72,10 @@
           formControlName="price"
         />
         <label>¿Está en oferta?</label>
-        <select name="ofert" id="ofert" formControlName="ofert"
-          ><option value="true">SI</option
-          ><option value="false">NO</option></select
-        >
+        <select name="ofert" id="ofert" formControlName="ofert">
+          <option value="true">SI</option>
+          <option value="false">NO</option>
+        </select>
         <label>Precio oferta</label>
         <input
           type="text"
@@ -83,34 +83,30 @@
           placeholder="Precio oferta"
           formControlName="ofert_price"
         />
-        <form [formGroup]="formSizes">
-          <div formArrayName="sizes">
-            <label>Tallas</label>
-            <div class="grid-sizes">
-              <div
-                *ngFor="let size of sizes.controls; index as i"
-                class="grid-sizes--item"
-              >
-                <label [for]="i">EU {{ 39 + i }}</label>
-                <div class="rows">
-                  <input
-                    type="checkbox"
-                    name="size"
-                    id="{{ i }}"
-                    [formControlName]="i"
-                  />
-
-                </div>
+        <div class="rows" >
+          <label for="stock">Stock</label>
+          <input type="checkbox" id="stock" formControlName="stock" >
+        </div>
+        <div formArrayName="sizes">
+          <label>Tallas</label>
+          <div class="grid-sizes">
+            <div
+              *ngFor="let size of sizes.controls; index as i"
+              class="grid-sizes--item"
+            >
+              <label [for]="i">EU {{ 39 + i }}</label>
+              <div class="rows">
+                <input
+                  type="checkbox"
+                  name="size"
+                  id="{{ i }}"
+                  [formControlName]="i"
+                />
               </div>
             </div>
           </div>
-          <input
-                    type="number"
-                    *ngIf="size.value"
-                    class="number-size"
-                    formControlName="sizesQuantity.controls[i]"
-                  />
-        </form>
+        </div>
+
         <label for="type">Tipo de producto</label>
         <select formControlName="type">
           <option value="shoe">Zapatilla</option>

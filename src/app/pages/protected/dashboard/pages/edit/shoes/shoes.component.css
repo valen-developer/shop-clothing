@@ -116,10 +116,15 @@
   width: 100%;
 }
 
+.rows label{
+  margin: 10px 10px 10px 0;
+}
+
 .grid-sizes {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  margin: 5px 0 10px 0;
 }
 
 
