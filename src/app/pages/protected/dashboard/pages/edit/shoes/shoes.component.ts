@@ -30,10 +30,6 @@ export class ShoesComponent implements OnInit {
   get sizes() {
     return this.form.get('sizes') as FormArray;
   }
-  get quantityControl() {
-    let quantityArray = this.form.get('quantity') as FormArray;
-    return quantityArray.controls;
-  }
 
   ngOnInit(): void {
     this.getProducts();
@@ -44,52 +40,96 @@ export class ShoesComponent implements OnInit {
   // Create form to edit
   setForm() {
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['Nuevo', [Validators.required]],
       price: ['', Validators.required],
       type: ['', Validators.required],
       ofert: ['NO'],
       ofert_price: [null],
-      stock: [true],
-      sizes: this.fb.array([
-        [true],
-        [true],
-        [true],
-        [true],
-        [true],
-        [true],
-        [true],
-      ]),
+      stock: [true, Validators.required],
+      sizes: this.fb.array([[0], [0], [0], [0], [0], [0], [0], [0]]),
     });
+    this.form.updateValueAndValidity();
   }
-  private setValuesForm(articule) {
+  private async setValuesForm(articule) {
+    console.log(articule.id);
+
+    const data = await this.productService.getSizes(this.selectedProduct.id);
+    const sizes = data.data;
+    let sizesArray = [];
+
+    sizes.forEach((size) => {
+      sizesArray.push(size.quantity);
+    });
+    while(sizesArray.length < 8){
+      sizesArray.push(0);
+    }
+    this.form.get('sizes').setValue(sizesArray);
+
     this.form.get('name').setValue(articule.name);
-    this.form.get('quantity').setValue(articule.quantity);
     this.form.get('price').setValue(articule.price);
-    this.form.get('size').setValue(articule.size);
+    // this.form.get('size').setValue(articule.sizes);
     this.form.get('type').setValue(articule.type);
   }
   //End control of forms
+  private setSizes() {
+    const sizes = this.form.get('sizes').value;
+    if (this.form.get('type').value === 'jacket') {
+      return [
+        { size: 'small', quantity: sizes[0] },
+        { size: 'medium', quantity: sizes[1] },
+        { size: 'large', quantity: sizes[2] },
+        { size: 'extralarge', quantity: sizes[3] },
+      ];
+    } else {
+      return [
+        { size: '39', quantity: sizes[0] ? sizes[0] : 0 },
+        { size: '40', quantity: sizes[1] ? sizes[1] : 0 },
+        { size: '41', quantity: sizes[2] ? sizes[2] : 0 },
+        { size: '42', quantity: sizes[3] ? sizes[3] : 0 },
+        { size: '43', quantity: sizes[4] ? sizes[4] : 0 },
+        { size: '44', quantity: sizes[5] ? sizes[5] : 0 },
+        { size: '45', quantity: sizes[6] ? sizes[6] : 0 },
+        { size: '46', quantity: sizes[6] ? sizes[7] : 0 },
+      ];
+    }
+  }
+
+  private setArticule() {
+    const sizes = this.setSizes();
+
+    const art = {
+      name: this.form.get('name').value,
+      price: this.form.get('price').value,
+      type: this.form.get('type').value,
+      ofert_price: this.form.get('ofert_price').value,
+      ofert: this.form.get('ofert').value,
+      stock: this.form.get('stock').value,
+      sizes,
+    };
+    return art;
+  }
 
   // Connect to backend
 
   async getProducts() {
-    this.items =  (await this.productService.getAll()).product;
+    this.items = (await this.productService.getAll()).product;
     this.items.forEach((item) => {
       item.urlimage = `http://localhost:3001/${item.urlimage}`;
     });
   }
 
   async saveArticle() {
-    console.log(this.form.value);
+    const articuleToSave = this.setArticule();
+
     if (this.modalTitle === 'Editar Artículo' && this.form.valid) {
-      const resp: any = await this.updateProduct();
+      const resp: any = await this.updateProduct(articuleToSave);
       this.showModalNotification(resp.ok);
       return;
     }
 
     if (this.form.valid) {
       const resp: any = await this.productService.postArticle(
-        this.form.value,
+        articuleToSave,
         this.files
       );
       this.showModalNotification(resp.ok);
@@ -103,18 +143,19 @@ export class ShoesComponent implements OnInit {
     }
   }
 
-  async updateProduct() {
+  async updateProduct(articuleToSave) {
     let file;
     if (this.files.length > 0) {
-      console.log('Entra archivos');
       file = this.files;
     } else {
       file = null;
     }
-    this.selectedProduct.name = this.form.value.name;
-    this.selectedProduct.quantity = this.form.value.quantity;
-    this.selectedProduct.price = this.form.value.price;
-    this.selectedProduct.sizes = this.form.value.sizes;
+    this.selectedProduct.name = articuleToSave.name;
+    this.selectedProduct.quantity = articuleToSave.quantity;
+    this.selectedProduct.price = articuleToSave.price;
+    this.selectedProduct.sizes = articuleToSave.sizes;
+
+    console.log(this.selectedProduct);
 
     const resp: any = await this.productService.updateProduct(
       this.selectedProduct,

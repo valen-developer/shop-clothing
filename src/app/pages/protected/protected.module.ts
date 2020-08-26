@@ -5,6 +5,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // Custom modules
 import { ComponentsModule } from "../../components/components.module";
 
+//Pipes
+import { JacketSizePipe } from "../../pipes/jacket-size.pipe";
+
 // Components
 import { ProtectedComponent } from './protected.component';
 import { ShoesComponent } from './dashboard/pages/edit/shoes/shoes.component';
@@ -30,6 +33,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     HomeComponent,
     ProtectedComponent,
     NgDropFilesDirective,
+    JacketSizePipe
   ],
   exports: [
     SidebarComponent,
@@ -39,6 +43,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ShoesComponent,
     HomeComponent,
     ProtectedComponent,
+    JacketSizePipe
   ],
   imports: [CommonModule, AppRoutingModule, FormsModule, ReactiveFormsModule, ComponentsModule],
 })

@@ -19,7 +19,10 @@ export class ProductsService {
       params: paramsSize,
     });
 
-    const data: any = { product: dataProducts.data.data, sizes: dataSizes.data };
+    const data: any = {
+      product: dataProducts.data.data,
+      sizes: dataSizes.data,
+    };
 
     return data;
   }
@@ -78,11 +81,10 @@ export class ProductsService {
     formData.append('fileLength', (i - 1).toString());
     formData.append('name', article.name);
     formData.append('type', article.type);
-    formData.append('size', article.size);
-    formData.append('size_cm', '43');
+    formData.append('size', JSON.stringify(article.sizes));
     formData.append('price', article.price);
-    formData.append('quantity', article.quantity);
     formData.append('ofert', article.ofert);
+    formData.append('ofert_price', article.ofert_price);
 
     try {
       const resp: any = await this.http
@@ -97,7 +99,7 @@ export class ProductsService {
   }
 
   async updateProduct(article, files) {
-    console.log('Actualizando');
+    
 
     const formData = new FormData();
     if (files) {
@@ -111,10 +113,8 @@ export class ProductsService {
     formData.append('id', article.id);
     formData.append('name', article.name);
     formData.append('type', article.type);
-    formData.append('size', article.size);
-    formData.append('size_cm', '43');
+    formData.append('sizes', JSON.stringify(article.sizes));
     formData.append('price', article.price);
-    formData.append('quantity', article.quantity);
     formData.append('urlimage', article.urlimage);
     try {
       const resp: any = await this.http
@@ -143,5 +143,14 @@ export class ProductsService {
     } catch (e) {
       return { ok: false, error: e };
     }
+  }
+
+  //Size
+  async getSizes(id) {
+    const params = new HttpParams().set('id', id);
+
+    const resp: any = await this.http.get(`${this.urlBase}/sizes`, { params }).toPromise();
+
+    return resp;
   }
 }

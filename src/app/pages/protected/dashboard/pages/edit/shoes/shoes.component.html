@@ -83,35 +83,40 @@
           placeholder="Precio oferta"
           formControlName="ofert_price"
         />
-        <div class="rows" >
+        <label for="type">Tipo de producto</label>
+        <select formControlName="type">
+          <option value="shoe">Zapatilla</option>
+          <option value="jacket">Chándal</option>
+        </select>
+        <div class="rows">
           <label for="stock">Stock</label>
-          <input type="checkbox" id="stock" formControlName="stock" >
+          <input type="checkbox" id="stock" formControlName="stock"  />
         </div>
-        <div formArrayName="sizes">
+        <div *ngIf="form.get('stock').value" formArrayName="sizes">
           <label>Tallas</label>
           <div class="grid-sizes">
             <div
               *ngFor="let size of sizes.controls; index as i"
               class="grid-sizes--item"
             >
-              <label [for]="i">EU {{ 39 + i }}</label>
+              <label *ngIf="form.get('type').value === 'shoe'" [for]="i"
+                >EU {{ 39 + i }}</label
+              ><label *ngIf="form.get('type').value === 'jacket'" [for]="i"
+              >{{ i | jacketSize }}</label
+            >
               <div class="rows">
                 <input
-                  type="checkbox"
+                  type="number"
                   name="size"
                   id="{{ i }}"
-                  [formControlName]="i"
+                  [formControlName]="i"                  
+                  class="number-size"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <label for="type">Tipo de producto</label>
-        <select formControlName="type">
-          <option value="shoe">Zapatilla</option>
-          <option value="jacket">Chándal</option>
-        </select>
         <label>Arrastra la imagen</label>
         <div class="colm">
           <div
