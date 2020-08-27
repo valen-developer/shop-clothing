@@ -7,14 +7,19 @@
           [ngClass]="{ 'grid-grow': i === 0 }"
           class="img-container"
         >
-          <img src="{{ image.urlimage }}" alt="" />
+          <img
+            src="{{ image.urlimage }}"
+            alt=""
+            (click)="showModalImage(image)"
+          />
         </div>
       </div>
       <div *ngIf="product" class="rows rows-center form">
         <div class="colm form">
           <div class="rows title">
             <h3>{{ product.name }}</h3>
-            <p>{{ product.price }}€</p>
+            <p *ngIf="!product.ofert" >{{ product.price }}€</p>
+            <p *ngIf="product.ofert" >{{ product.ofert_price }}€</p>
           </div>
           <hr />
 
@@ -53,3 +58,11 @@
     <p>Talla no disponible</p>
   </div>
 </div>
+
+<!-- Modal Image -->
+<app-image-modal
+  class="image-modal"
+  id="image-modal"
+  [product]="productSelected"
+  
+></app-image-modal>

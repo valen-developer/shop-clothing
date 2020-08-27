@@ -1,0 +1,13 @@
+<div class="image-modal-container">
+  <div class="image-card-container">
+    <h3>{{ product.name }}</h3>
+    <img [src]="product.urlimage" alt="" />
+    <div class="hidden-modal" >
+        <span (click)="hiddenModal()" >&times;</span>
+    </div>
+  </div>
+</div>
+
+<div class="hidden-modal" >
+    <span>&times;</span>
+</div>

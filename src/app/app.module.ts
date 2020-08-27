@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProtectedModule } from './pages/protected/protected.module';
 import { PublicModule } from './pages/public/public.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

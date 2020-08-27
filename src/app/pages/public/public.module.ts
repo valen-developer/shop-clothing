@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+// Custom Modules
+import { ComponentsModule } from '../../components/components.module';
+
 // Components
 import { HomePublicComponent } from './home-public/home-public.component';
 import { JacketComponent } from './jacket/jacket.component';
@@ -10,10 +13,10 @@ import { CardComponent } from './shared/card/card.component';
 import { NavbarPublicComponent } from './shared/navbar-public/navbar-public.component';
 import { ShoeComponent } from './shoe/shoe.component';
 import { UserComponent } from './user/user.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,12 @@ import { ProductPageComponent } from './product-page/product-page.component';
     CardComponent,
     ProductPageComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ComponentsModule,
+  ],
 })
 export class PublicModule {}

@@ -18,6 +18,7 @@ export class ProductPageComponent implements OnInit {
   imagenes: any[];
   sizes: Size[] = [];
   form: FormGroup;
+  productSelected: Product = { name: '', urlimage: '' };
 
   constructor(
     private productsService: ProductsService,
@@ -65,6 +66,18 @@ export class ProductPageComponent implements OnInit {
     this.checkForm();
   }
 
+  showModalImage(image) {
+    this.productSelected = {
+      name: this.product.name,
+      urlimage: image.urlimage,
+    };
+
+    console.log(this.productSelected);
+
+    const imageModal = document.getElementById('image-modal');
+    imageModal.style.display = 'block';
+  }
+
   private checkForm() {
     this.sizes.forEach((size) => {
       if (size.size === this.form.get('size').value) {
@@ -88,6 +101,11 @@ export class ProductPageComponent implements OnInit {
   private async getProduct() {
     const resp: any = await this.productsService.getProductById(this.productID);
     this.product = resp.data.data[0];
+
+    this.product.ofert = (this.product.ofert === 'true') ? true : false;
+
+    console.log(this.product);
+    
   }
 
   private setUrlImages() {
@@ -112,4 +130,9 @@ interface Size {
   size: string;
   quantity: number;
   selected: boolean;
+}
+
+interface Product {
+  name: string;
+  urlimage: string;
 }

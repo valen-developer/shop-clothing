@@ -17,6 +17,7 @@ import { UserProfileComponent } from './dashboard/pages/user-profile/user-profil
 import { NavbarComponent } from './dashboard/shared/navbar/navbar.component';
 import { SidebarComponent } from './dashboard/shared/sidebar/sidebar.component';
 
+
 // Directives
 import { NgDropFilesDirective } from 'src/app/directives/ng-drop-files.directive';
 
