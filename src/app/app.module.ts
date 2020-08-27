@@ -7,13 +7,14 @@ import { AppComponent } from './app.component';
 
 //Services
 import { ProductsService } from '../app/services/products.service';
+import { ImagesService } from '../app/services/images.service';
+import { SizesService } from '../app/services/sizes.service';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { ProtectedModule } from './pages/protected/protected.module';
 import { PublicModule } from './pages/public/public.module';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,7 @@ import { PublicModule } from './pages/public/public.module';
     FormsModule,
   ],
   exports: [],
-  providers: [ProductsService],
+  providers: [ProductsService, ImagesService, SizesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

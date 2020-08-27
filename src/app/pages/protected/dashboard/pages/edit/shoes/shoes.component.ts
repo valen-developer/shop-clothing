@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { ProductsService } from '../../../../../../services/products.service';
 import { ThrowStmt } from '@angular/compiler';
+import { ImagesService } from 'src/app/services/images.service';
+import { SizesService } from 'src/app/services/sizes.service';
 
 @Component({
   selector: 'app-shoes',
@@ -21,6 +23,8 @@ export class ShoesComponent implements OnInit {
 
   constructor(
     private productService: ProductsService,
+    private imagesService: ImagesService,
+    private sizesServices: SizesService,
     private fb: FormBuilder
   ) {
     this.setForm();
@@ -38,7 +42,7 @@ export class ShoesComponent implements OnInit {
   /* Control of forms */
 
   // Create form to edit
-  setForm() {
+  private setForm() {
     this.form = this.fb.group({
       name: ['Nuevo', [Validators.required]],
       price: ['', Validators.required],
@@ -48,29 +52,30 @@ export class ShoesComponent implements OnInit {
       stock: [true, Validators.required],
       sizes: this.fb.array([[0], [0], [0], [0], [0], [0], [0], [0]]),
     });
-    this.form.updateValueAndValidity();
   }
-  private async setValuesForm(articule) {
-    console.log(articule.id);
 
-    const data = await this.productService.getSizes(this.selectedProduct.id);
+  // Use when edit article. Call from showModal
+  private async setValuesForm(article) {
+    const data = await this.sizesServices.getSizes(this.selectedProduct.id);
     const sizes = data.data;
     let sizesArray = [];
 
     sizes.forEach((size) => {
       sizesArray.push(size.quantity);
     });
-    while(sizesArray.length < 8){
+    while (sizesArray.length < 8) {
       sizesArray.push(0);
     }
     this.form.get('sizes').setValue(sizesArray);
-
-    this.form.get('name').setValue(articule.name);
-    this.form.get('price').setValue(articule.price);
-    // this.form.get('size').setValue(articule.sizes);
-    this.form.get('type').setValue(articule.type);
+    this.form.get('name').setValue(article.name);
+    this.form.get('price').setValue(article.price);
+    this.form.get('stock').setValue(article.stock === 'true' ? true : false);
+    this.form.get('type').setValue(article.type);
+    this.form.get('ofert').setValue(article.ofert);
+    this.form.get('ofert_price').setValue(article.ofert_price);
   }
   //End control of forms
+
   private setSizes() {
     const sizes = this.form.get('sizes').value;
     if (this.form.get('type').value === 'jacket') {
@@ -94,18 +99,24 @@ export class ShoesComponent implements OnInit {
     }
   }
 
+  // Use when saveArticle
   private setArticule() {
+    // get sizes
     const sizes = this.setSizes();
 
     const art = {
       name: this.form.get('name').value,
       price: this.form.get('price').value,
       type: this.form.get('type').value,
-      ofert_price: this.form.get('ofert_price').value,
+      ofert_price:
+        this.form.get('ofert_price').value !== null
+          ? this.form.get('ofert_price').value
+          : 0,
       ofert: this.form.get('ofert').value,
       stock: this.form.get('stock').value,
       sizes,
     };
+
     return art;
   }
 
@@ -126,7 +137,6 @@ export class ShoesComponent implements OnInit {
       this.showModalNotification(resp.ok);
       return;
     }
-
     if (this.form.valid) {
       const resp: any = await this.productService.postArticle(
         articuleToSave,
@@ -143,17 +153,20 @@ export class ShoesComponent implements OnInit {
     }
   }
 
-  async updateProduct(articuleToSave) {
+  async updateProduct(articleToSave) {
     let file;
     if (this.files.length > 0) {
       file = this.files;
     } else {
       file = null;
     }
-    this.selectedProduct.name = articuleToSave.name;
-    this.selectedProduct.quantity = articuleToSave.quantity;
-    this.selectedProduct.price = articuleToSave.price;
-    this.selectedProduct.sizes = articuleToSave.sizes;
+    this.selectedProduct.name = articleToSave.name;
+    this.selectedProduct.price = articleToSave.price;
+    this.selectedProduct.type = articleToSave.type;
+    this.selectedProduct.sizes = articleToSave.sizes;
+    this.selectedProduct.stock = articleToSave.stock;
+    this.selectedProduct.ofert = articleToSave.ofert;
+    this.selectedProduct.ofert_price = articleToSave.ofert_price;
 
     console.log(this.selectedProduct);
 
@@ -166,6 +179,9 @@ export class ShoesComponent implements OnInit {
     setTimeout(() => {
       this.getProducts();
     }, 2000);
+
+    this.form.reset();
+    this.getProducts();
 
     return resp;
   }

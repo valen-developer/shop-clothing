@@ -17,7 +17,8 @@ export class HomePublicComponent implements OnInit {
   }
 
   async getProducts() {
-    const itemsAux = await this.productsService.getAll();
+    const itemsAux: any[] = (await this.productsService.getAll()).product;
+    console.log(itemsAux);
     itemsAux.forEach((item) => {
       item.ofert === 'true' ? this.items.push(item) : null;
     });

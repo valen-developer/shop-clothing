@@ -10,24 +10,46 @@
           <img src="{{ image.urlimage }}" alt="" />
         </div>
       </div>
-      <div class="rows rows-center form">
+      <div *ngIf="product" class="rows rows-center form">
         <div class="colm form">
           <div class="rows title">
             <h3>{{ product.name }}</h3>
             <p>{{ product.price }}€</p>
           </div>
-          <form>
+          <hr />
+
+          <form [formGroup]="form" (ngSubmit)="submitForm()">
+            <label>Tallas</label>
             <div class="size-grid">
-              <div class="size-item">EU 43</div>
-              <div class="size-item">EU 43</div>
-              <div class="size-item">EU 43</div>
-              <div class="size-item">EU 43</div>
-              <div class="size-item">EU 43</div>
-              <div class="size-item">EU 43</div>
+              <div *ngFor="let size of sizes; index as i">
+                <div class="size-item" [id]="i" (click)="selectSize(size, i)">
+                  <label [for]="size.size">{{ size.size }}</label>
+                  <input
+                    type="radio"
+                    style="display: none"
+                    [id]="size.size"
+                    [value]="size.size"
+                    formControlName="size"
+                  />
+                </div>
+                <small *ngIf="size.quantity <= 0">Talla no disponible</small>
+              </div>
             </div>
+            <hr />
+            <label for="quantity">Cantidad</label>
+            <input type="number" class="quantity" formControlName="quantity" />
+            <button class="btn btn-primary btn-block">Añadir al carrito</button>
           </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!--Size not aviable-->
+<div class="modal-card fadeIn" id="notSizeModal">
+  <div class="rows">
+    <i class="fas fa-exclamation-circle"></i>
+    <p>Talla no disponible</p>
   </div>
 </div>

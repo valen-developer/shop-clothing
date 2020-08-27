@@ -90,8 +90,10 @@
         </select>
         <div class="rows">
           <label for="stock">Stock</label>
-          <input type="checkbox" id="stock" formControlName="stock"  />
+          <input type="checkbox" id="stock" formControlName="stock" />
         </div>
+
+        <!--Sizes Logic-->
         <div *ngIf="form.get('stock').value" formArrayName="sizes">
           <label>Tallas</label>
           <div class="grid-sizes">
@@ -99,23 +101,34 @@
               *ngFor="let size of sizes.controls; index as i"
               class="grid-sizes--item"
             >
-              <label *ngIf="form.get('type').value === 'shoe'" [for]="i"
-                >EU {{ 39 + i }}</label
-              ><label *ngIf="form.get('type').value === 'jacket'" [for]="i"
-              >{{ i | jacketSize }}</label
-            >
-              <div class="rows">
+              <div
+                *ngIf="
+                  (form.get('type').value === 'jacket' && i < 4) ||
+                  form.get('type').value === 'shoe'
+                "
+              >
+                <label *ngIf="form.get('type').value === 'shoe'" [for]="i"
+                  >EU {{ 39 + i }}</label
+                ><label *ngIf="form.get('type').value === 'jacket'" [for]="i">{{
+                  i | jacketSize
+                }}</label>
+
                 <input
+                  *ngIf="
+                    (form.get('type').value === 'jacket' && i < 4) ||
+                    form.get('type').value === 'shoe'
+                  "
                   type="number"
                   name="size"
                   id="{{ i }}"
-                  [formControlName]="i"                  
+                  [formControlName]="i"
                   class="number-size"
                 />
               </div>
             </div>
           </div>
         </div>
+        <!--End Sizes Logic-->
 
         <label>Arrastra la imagen</label>
         <div class="colm">

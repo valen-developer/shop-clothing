@@ -17,7 +17,6 @@ export class CardComponent implements OnInit {
   }
 
   private checkOfert() {
-    console.log(this.shoe.ofert);
     this.shoe.ofert === 'true'
       ? (this.shoe.ofert = true)
       : (this.shoe.ofert = false);

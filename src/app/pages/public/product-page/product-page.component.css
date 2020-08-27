@@ -43,13 +43,61 @@
   gap: 20px 20px;
 }
 .size-item {
-  padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
+  cursor: pointer;
+}
+.size-item label{
+  padding: 10px;
   cursor: pointer;
 }
 .size-item:hover {
   background-color: rgba(0, 0, 0, 0.1);
   color: black;
 }
+
+.quantity{
+  background-color: purple;
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0 2rem 0;
+}
+
+.size-selected{
+  background-color: purple !important;
+  color: white !important;
+}
+.size-selected label{
+  color: inherit;
+
+}
+
+.btn-primary{
+  background-color: white;
+  color: purple;
+  font-weight: bold;
+}
+
+.modal-card{
+  padding: 20px 50px;
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: max-content;
+}
+.modal-card p{
+  color: inherit;
+  margin-left: 10px;
+}
+

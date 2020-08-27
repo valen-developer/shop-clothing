@@ -8,25 +8,19 @@ export class ProductsService {
   private urlBase = 'http://localhost:3001/api';
   constructor(private http: HttpClient) {}
 
+  // Prducts and sizes
   async getAll() {
     const dataProducts: any = await this.http
       .get(`${this.urlBase}/products/all`)
       .toPromise();
-    const id = dataProducts.data.data.id;
-
-    const paramsSize = new HttpParams().set('id', id);
-    const dataSizes: any = await this.http.get(`${this.urlBase}/sizes`, {
-      params: paramsSize,
-    });
 
     const data: any = {
       product: dataProducts.data.data,
-      sizes: dataSizes.data,
     };
-
     return data;
   }
 
+  // Product
   async getProductById(id) {
     const params = new HttpParams().set('id', id);
 
@@ -37,18 +31,7 @@ export class ProductsService {
     return resp;
   }
 
-  async getImagesById(id) {
-    const params = new HttpParams().set('id', id);
-
-    const resp: any = await this.http
-      .get(`${this.urlBase}/images`, {
-        params,
-      })
-      .toPromise();
-
-    return resp;
-  }
-
+  //Products
   async getShoes(): Promise<any[]> {
     const params = new HttpParams().set('type', 'shoe');
     const resp: any = await this.http
@@ -69,22 +52,9 @@ export class ProductsService {
     return resp.data;
   }
 
+  // product
   async postArticle(article, files) {
-    const formData = new FormData();
-
-    // Set files
-    let i = 1;
-    files.forEach((file) => {
-      formData.append(`file`, file);
-      i++;
-    });
-    formData.append('fileLength', (i - 1).toString());
-    formData.append('name', article.name);
-    formData.append('type', article.type);
-    formData.append('size', JSON.stringify(article.sizes));
-    formData.append('price', article.price);
-    formData.append('ofert', article.ofert);
-    formData.append('ofert_price', article.ofert_price);
+    const formData = this.setFormData(article, files);
 
     try {
       const resp: any = await this.http
@@ -98,24 +68,9 @@ export class ProductsService {
     }
   }
 
+  //Product
   async updateProduct(article, files) {
-    
-
-    const formData = new FormData();
-    if (files) {
-      let i = 1;
-      files.forEach((file) => {
-        formData.append(`file`, file);
-        i++;
-      });
-      formData.append('fileLength', (i - 1).toString());
-    }
-    formData.append('id', article.id);
-    formData.append('name', article.name);
-    formData.append('type', article.type);
-    formData.append('sizes', JSON.stringify(article.sizes));
-    formData.append('price', article.price);
-    formData.append('urlimage', article.urlimage);
+    const formData = this.setFormData(article, files);
     try {
       const resp: any = await this.http
         .put(`${this.urlBase}/products`, formData)
@@ -145,12 +100,26 @@ export class ProductsService {
     }
   }
 
-  //Size
-  async getSizes(id) {
-    const params = new HttpParams().set('id', id);
+  private setFormData(article, files): FormData {
+    const formData = new FormData();
+    if (files) {
+      let i = 1;
+      files.forEach((file) => {
+        formData.append(`file`, file);
+        i++;
+      });
+      formData.append('fileLength', (i - 1).toString());
+    }
+    formData.append('id', article.id);
+    formData.append('name', article.name);
+    formData.append('type', article.type);
+    formData.append('sizes', JSON.stringify(article.sizes));
+    formData.append('price', article.price);
+    formData.append('urlimage', article.urlimage);
+    formData.append('ofert', article.ofert);
+    formData.append('stock', article.stock);
+    formData.append('ofert_price', article.ofert_price);
 
-    const resp: any = await this.http.get(`${this.urlBase}/sizes`, { params }).toPromise();
-
-    return resp;
+    return formData;
   }
 }
