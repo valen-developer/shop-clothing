@@ -15,16 +15,26 @@
 .nav-item.active {
   border-bottom: 1px solid black;
 }
-.top{
+.top {
   justify-content: flex-end;
 }
-.top-container{
+.top-container {
+  display: flex;
   margin: 0.6rem 1rem;
 }
-.top-item{
+.top-item {
   margin: 0 0.7rem;
   cursor: pointer;
 }
-.top-item:hover{
+.top-item:hover {
   color: grey;
+}
+
+.badget{
+  display: inline;
+  border-radius: 100%;
+  padding: 3px 6px;
+  background-color: red;
+  color: white;
+  font-size: .7rem;
 }

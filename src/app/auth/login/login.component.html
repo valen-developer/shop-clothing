@@ -1,14 +1,16 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100 fadeIn">
-      <form class="login100-form validate-form">
+      <form
+        class="login100-form validate-form"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+      >
         <span class="login100-form-logo">
           <i class="zmdi zmdi-landscape"></i>
         </span>
 
-        <span class="login100-form-title p-b-34 p-t-27">
-          Acceder
-        </span>
+        <span class="login100-form-title p-b-34 p-t-27"> Acceder </span>
 
         <div
           class="wrap-input100 validate-input"
@@ -16,9 +18,10 @@
         >
           <input
             class="input100"
-            type="text"
-            name="username"
+            type="email"
+            name="email"
             placeholder="Email"
+            formControlName="email"
           />
           <span class="focus-input100" data-placeholder="&#xf207;"></span>
         </div>
@@ -30,8 +33,9 @@
           <input
             class="input100"
             type="password"
-            name="pass"
+            name="password"
             placeholder="Contraseña"
+            formControlName="password"
           />
           <span class="focus-input100" data-placeholder="&#xf191;"></span>
         </div>
@@ -42,20 +46,13 @@
             id="ckb1"
             type="checkbox"
             name="remember-me"
+            formControlName="remember"
           />
-          <label class="label-checkbox100" for="ckb1">
-            Recuérdame
-          </label>
+          <label class="label-checkbox100" for="ckb1"> Recuérdame </label>
         </div>
 
         <div class="container-login100-form-btn">
-          <button
-            class="login100-form-btn"
-            id="login"
-            (click)="onSubmit($event)"
-          >
-            Entrar
-          </button>
+          <button class="login100-form-btn" id="login">Entrar</button>
         </div>
 
         <div class="row-evenly">
@@ -65,9 +62,7 @@
             </a>
           </div>
           <div class="text-center p-t-90">
-            <a class="txt1 texto" routerLink="/register">
-              Registrar
-            </a>
+            <a class="txt1 texto" routerLink="/register"> Registrar </a>
           </div>
         </div>
       </form>
@@ -78,8 +73,6 @@
 <app-go-home class="go-home" routerLink="/"></app-go-home>
 
 <app-modal-pass class="modal fadeIn" id="modalpass"></app-modal-pass>
-<div class="modal-notify" id="modalnotify">
-  <div class="alert alert-success" id="modalnotifycontent">
-    <strong>¡Perfecto!</strong> Revisa tu bandeja de entrada.
-  </div>
+<div class="modal-notify fadeIn" id="modalnotify">
+    <p>{{ modalNotifyMessage }}</p>
 </div>

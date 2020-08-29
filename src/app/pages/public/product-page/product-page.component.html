@@ -38,12 +38,13 @@
                   />
                 </div>
                 <small *ngIf="size.quantity <= 0">Talla no disponible</small>
+                <small *ngIf="size.quantity > 0" >{{ size.quantity }} Disponibles</small>
               </div>
             </div>
             <hr />
             <label for="quantity">Cantidad</label>
             <input type="number" class="quantity" formControlName="quantity" />
-            <button class="btn btn-primary btn-block">Añadir al carrito</button>
+            <button class="btn btn-primary btn-block" >Añadir al carrito</button>
           </form>
         </div>
       </div>

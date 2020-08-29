@@ -14,6 +14,7 @@ import { NavbarPublicComponent } from './shared/navbar-public/navbar-public.comp
 import { ShoeComponent } from './shoe/shoe.component';
 import { UserComponent } from './user/user.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { CarComponent } from './car/car.component';
 
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -28,6 +29,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     UserComponent,
     CardComponent,
     ProductPageComponent,
+    CarComponent,
   ],
   exports: [
     PublicComponent,
@@ -38,6 +40,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     UserComponent,
     CardComponent,
     ProductPageComponent,
+    CarComponent
   ],
   imports: [
     CommonModule,

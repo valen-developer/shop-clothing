@@ -3,13 +3,28 @@
 }
 .grid {
   display: grid;
+  height: max-content;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px 2px;
   margin: 2rem 6rem;
 }
+@media only screen and (max-width: 800px){
+  .grid{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin: 10px;
+  }
+  
+}
+@media only screen and (max-width: 500px){
+  .main-container{
+    flex-direction: column;
+  }
+}
 .img-container {
   max-width: 200px;
+  height: max-content;
 }
 .grid img {
   max-width: 100%;
@@ -91,7 +106,7 @@
   border-radius: 5px;
 
   display: none;
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 20px;
   width: max-content;
@@ -103,4 +118,10 @@
 
 .image-modal{
   display: none;
+}
+
+@media only screen and (max-width: 500px){
+  .form{
+    width: 100%;
+  }
 }

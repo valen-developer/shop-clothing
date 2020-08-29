@@ -7,6 +7,7 @@ import { JacketComponent } from './jacket/jacket.component';
 import { ShoeComponent } from './shoe/shoe.component';
 import { UserComponent } from './user/user.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { CarComponent } from './car/car.component';
 
 const publicRoutes: Routes = [
   {
@@ -17,6 +18,7 @@ const publicRoutes: Routes = [
       { path: 'jacket', component: JacketComponent },
       { path: 'shoe', component: ShoeComponent },
       { path: 'user', component: UserComponent },
+      { path: 'car', component: CarComponent },
       { path: 'product/:id', component: ProductPageComponent },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
     ],

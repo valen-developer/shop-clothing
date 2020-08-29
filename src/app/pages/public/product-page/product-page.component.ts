@@ -6,6 +6,7 @@ import { ImagesService } from 'src/app/services/images.service';
 
 import { ProductsService } from 'src/app/services/products.service';
 import { SizesService } from 'src/app/services/sizes.service';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-product-page',
@@ -24,6 +25,7 @@ export class ProductPageComponent implements OnInit {
     private productsService: ProductsService,
     private imagesService: ImagesService,
     private sizesService: SizesService,
+    private carService: CarService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -50,6 +52,7 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
+  // Use to set size as selected
   selectSize(size: Size, index: number) {
     for (let i = 0; i < this.sizes.length; i++) {
       const ele = document.getElementById(i.toString());
@@ -62,50 +65,57 @@ export class ProductPageComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.form.value);
     this.checkForm();
   }
 
+  //Modal with image clicked
   showModalImage(image) {
     this.productSelected = {
       name: this.product.name,
       urlimage: image.urlimage,
     };
-
-    console.log(this.productSelected);
-
     const imageModal = document.getElementById('image-modal');
     imageModal.style.display = 'block';
   }
 
-  private checkForm() {
+  private checkForm(): boolean {
     this.sizes.forEach((size) => {
       if (size.size === this.form.get('size').value) {
         if (size.quantity <= 0) {
-          const modal = document.getElementById('notSizeModal');
-          modal.style.display = 'block';
-          setTimeout(() => {
-            modal.classList.add('fadeOut');
-            setTimeout(() => {
-              modal.classList.remove('fadeOut');
-              modal.style.display = 'none';
-            }, 1000);
-          }, 2000);
+          this.showNotSizeModal();
+          return false;
         } else {
           console.log('talla disponible');
+          if (size.quantity < this.form.get('quantity').value) {
+            this.showNotSizeModal();
+            return false;
+          }
+          return true;
         }
       }
     });
+    return false;
+  }
+
+  private showNotSizeModal() {
+    const modal = document.getElementById('notSizeModal');
+    modal.style.display = 'block';
+    setTimeout(() => {
+      modal.classList.add('fadeOut');
+      setTimeout(() => {
+        modal.classList.remove('fadeOut');
+        modal.style.display = 'none';
+      }, 1000);
+    }, 2000);
   }
 
   private async getProduct() {
     const resp: any = await this.productsService.getProductById(this.productID);
     this.product = resp.data.data[0];
 
-    this.product.ofert = (this.product.ofert === 'true') ? true : false;
+    this.product.ofert = this.product.ofert === 'true' ? true : false;
 
     console.log(this.product);
-    
   }
 
   private setUrlImages() {
