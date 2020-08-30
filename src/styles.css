@@ -14,6 +14,18 @@ body {
 .colm-w10 {
   width: 100%;
 }
+
+.colm-w8 {
+  width: 80%;
+}
+.colm-w6 {
+  width: 60%;
+}
+
+.colm-w4 {
+  width: 40%;
+}
+
 .rows {
   display: flex;
 }
@@ -22,6 +34,9 @@ body {
 }
 .rows-sevenly {
   justify-content: space-evenly;
+}
+.rows-sarround {
+  justify-content: space-around;
 }
 .rows-center {
   justify-content: center;
@@ -60,3 +75,4 @@ body {
     display: none;
   }
 }
+

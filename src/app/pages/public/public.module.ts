@@ -16,6 +16,9 @@ import { UserComponent } from './user/user.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CarComponent } from './car/car.component';
 
+// Pipes
+import { CheckOfertPipe } from '../../pipes/check-ofert.pipe';
+
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
@@ -30,6 +33,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     CardComponent,
     ProductPageComponent,
     CarComponent,
+    CheckOfertPipe,
   ],
   exports: [
     PublicComponent,
@@ -40,7 +44,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     UserComponent,
     CardComponent,
     ProductPageComponent,
-    CarComponent
+    CarComponent,
+    CheckOfertPipe,
   ],
   imports: [
     CommonModule,

@@ -65,7 +65,13 @@ export class ProductPageComponent implements OnInit {
   }
 
   submitForm() {
-    this.checkForm();
+    if (this.checkForm()) {
+      this.carService.setProductInCar({
+        product: this.product,
+        size: this.form.value.size,
+        quantity: this.form.value.quantity,
+      });
+    }
   }
 
   //Modal with image clicked
@@ -79,22 +85,22 @@ export class ProductPageComponent implements OnInit {
   }
 
   private checkForm(): boolean {
+    let returnAux: boolean = false;
     this.sizes.forEach((size) => {
       if (size.size === this.form.get('size').value) {
         if (size.quantity <= 0) {
           this.showNotSizeModal();
-          return false;
         } else {
           console.log('talla disponible');
           if (size.quantity < this.form.get('quantity').value) {
             this.showNotSizeModal();
-            return false;
           }
-          return true;
+          returnAux = true;
         }
       }
     });
-    return false;
+
+    return returnAux;
   }
 
   private showNotSizeModal() {
@@ -112,10 +118,7 @@ export class ProductPageComponent implements OnInit {
   private async getProduct() {
     const resp: any = await this.productsService.getProductById(this.productID);
     this.product = resp.data.data[0];
-
     this.product.ofert = this.product.ofert === 'true' ? true : false;
-
-    console.log(this.product);
   }
 
   private setUrlImages() {

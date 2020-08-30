@@ -1,3 +1,17 @@
-.title{
-    text-align: center;
+.title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.custom-container {
+  flex-direction: row;
+}
+@media only screen and (max-width: 500px) {
+  .custom-container {
+    margin: 1rem;
+    flex-direction: column;
+  }
+  .custom-table{
+    margin: 1rem 0;
+  }
 }

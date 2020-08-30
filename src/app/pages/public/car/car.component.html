@@ -2,41 +2,46 @@
   <h2>¡Pasémos por caja!</h2>
 </div>
 
-<div class="rows rows-sevenly">  
-  <div class="colm">
+<div class="rows rows-sevenly custom-container fadeIn">
+  <div class="colm colm-w4 custom-table ">
     <h3>Cesta</h3>
     <hr />
+
     <table class="table">
-      <thead class="table-dark">
-        <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Precio</th>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Producto</th>
+          <th scope="col">Talla</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+        </tr>
       </thead>
       <tbody>
-        <td>Real Madrid</td>
-        <td>1</td>
-        <td>55€</td>
+        <tr *ngFor="let item of items">
+          <th scope="row">{{ item.product.name }}</th>
+          <td>{{ item.size }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item | checkOfert }}€</td>
+        </tr>
       </tbody>
     </table>
   </div>
-  <div class="colm" >
 
+  <div class="colm">
     <h3>Resumen de compra</h3>
-    <hr>
+    <hr />
     <div class="rows rows-sbet">
-        <h5>Subtotal</h5>
-        <span>45€</span>
+      <h5>Subtotal</h5>
+      <span>{{ subtotal }}€</span>
     </div>
     <div class="rows rows-sbet">
-        <h5>Gastos de Envío</h5>
-        <span>3,95€</span>
+      <h5>Gastos de Envío</h5>
+      <span>{{ shippingCost }}€</span>
     </div>
-    <hr>
+    <hr />
     <div class="rows rows-sbet">
-        <h4>Total</h4>
-        <span>48,95€</span>
+      <h4>Total</h4>
+      <span>{{ total }}€</span>
     </div>
-
-
   </div>
 </div>

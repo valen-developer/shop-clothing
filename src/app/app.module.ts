@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { ProtectedModule } from './pages/protected/protected.module';
 import { PublicModule } from './pages/public/public.module';
-import { ServicesModule } from "./services/services.module";
+import { ServicesModule } from './services/services.module';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ServicesModule } from "./services/services.module";
     PublicModule,
     ReactiveFormsModule,
     FormsModule,
-    ServicesModule
+    ServicesModule,
   ],
   exports: [],
   providers: [],

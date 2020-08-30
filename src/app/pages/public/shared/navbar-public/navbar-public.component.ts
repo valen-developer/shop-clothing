@@ -14,9 +14,7 @@ export class NavbarPublicComponent implements OnInit {
   constructor(
     private userService: UserService,
     private carService: CarService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.userService.loggedObservable.subscribe((logState) => {
       this.logged = logState;
     });
@@ -25,8 +23,11 @@ export class NavbarPublicComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {}
+
   logOut() {
     localStorage.setItem('token', '');
     this.userService.verifyLogged();
+    this.carService.clearCar();
   }
 }

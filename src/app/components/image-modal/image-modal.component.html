@@ -1,11 +1,9 @@
-<div class="image-modal-container">
-  <div class="image-card-container">
-    <h3>{{ product.name }}</h3>
+<div class="image-modal-container fadeIn ">
+  <div class="image-card-container ">
+    <h3 class="animated-delay-display">{{ product.name }}</h3>
     <img [src]="product.urlimage" alt="" />
-    <div class="rows rows-center hidden-modal" >
-        <span (click)="hiddenModal()" >&times;</span>
+    <div class="rows rows-center hidden-modal">
+      <span (click)="hiddenModal()">&times;</span>
     </div>
   </div>
 </div>
-
-

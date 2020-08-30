@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CarService {
   produtsLengthController: BehaviorSubject<number>;
   productsController: BehaviorSubject<Product[]>;
-  private itemsCar: Product[] = []
+  private itemsCar: Product[] = [];
 
   constructor() {
     this.productsController = new BehaviorSubject(this.itemsCar);
@@ -18,9 +18,18 @@ export class CarService {
     this.itemsCar.push(product);
     this.productsController.next(this.itemsCar);
     this.produtsLengthController.next(this.itemsCar.length);
+    console.log(this.itemsCar);
+  }
+
+  clearCar() {
+    this.itemsCar = [];
+    this.productsController.next(this.itemsCar);
+    this.produtsLengthController.next(this.itemsCar.length);
   }
 }
 
-interface Product{
-  name: string;
+interface Product {
+  product: any;
+  size: string;
+  quantity: number;
 }
