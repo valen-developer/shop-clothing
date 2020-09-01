@@ -18,7 +18,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
-          <th>{{ item.name }}</th>
+          <th>
+            <a routerLink="/product/{{ item.id }}">
+              {{ item.name }}
+            </a>
+          </th>
           <td class="screen-tab">{{ item.quantity }}</td>
           <td class="screen-tab">{{ item.type }}</td>
           <td class="screen-tab">{{ item.price }}€</td>

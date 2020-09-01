@@ -7,14 +7,15 @@ import { PublicRoutingModule } from './pages/public/public.routing';
 //Components
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { CheckRegisterComponent } from './auth/check-register/check-register.component';
 
 const routes: Routes = [
-
   //path: /dashboard -> protected routing
   //path: / -> public routing
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'checkregister/:token', component: CheckRegisterComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
 

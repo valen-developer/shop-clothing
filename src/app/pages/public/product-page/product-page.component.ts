@@ -54,10 +54,12 @@ export class ProductPageComponent implements OnInit {
 
   // Use to set size as selected
   selectSize(size: Size, index: number) {
+    //Remove class with purple color
     for (let i = 0; i < this.sizes.length; i++) {
       const ele = document.getElementById(i.toString());
       ele.classList.remove('size-selected');
     }
+    //Check if exist sizes and add purple color
     if (size.quantity > 0) {
       const ele = document.getElementById(index.toString());
       ele.classList.add('size-selected');
@@ -71,6 +73,8 @@ export class ProductPageComponent implements OnInit {
         size: this.form.value.size,
         quantity: this.form.value.quantity,
       });
+      this.substractSize();
+      this.form.setValue({ size: this.form.value.size, quantity: 0 });
     }
   }
 
@@ -91,16 +95,27 @@ export class ProductPageComponent implements OnInit {
         if (size.quantity <= 0) {
           this.showNotSizeModal();
         } else {
-          console.log('talla disponible');
-          if (size.quantity < this.form.get('quantity').value) {
+          if (
+            size.quantity < this.form.get('quantity').value ||
+            this.form.value.quantity === 0
+          ) {
             this.showNotSizeModal();
+          } else {
+            returnAux = true;
           }
-          returnAux = true;
         }
       }
     });
 
     return returnAux;
+  }
+
+  private substractSize() {
+    this.sizes.forEach((size) => {
+      if (size.size === this.form.value.size) {
+        size.quantity -= this.form.value.quantity;
+      }
+    });
   }
 
   private showNotSizeModal() {
@@ -119,6 +134,7 @@ export class ProductPageComponent implements OnInit {
     const resp: any = await this.productsService.getProductById(this.productID);
     this.product = resp.data.data[0];
     this.product.ofert = this.product.ofert === 'true' ? true : false;
+    this.checkCar();
   }
 
   private setUrlImages() {
@@ -133,8 +149,23 @@ export class ProductPageComponent implements OnInit {
       this.sizes.push({
         size: size.size,
         quantity: size.quantity,
-        selected: false,
       });
+    });
+    this.checkCar();
+  }
+
+  private checkCar() {
+    const car = this.carService.car;
+
+    car.forEach((item) => {
+      if (item.product.id === this.product.id) {
+        this.sizes.forEach((size) => {
+          console.log(size);
+          if (size.size === item.size) {
+            size.quantity -= item.quantity;
+          }
+        });
+      }
     });
   }
 }
@@ -142,7 +173,6 @@ export class ProductPageComponent implements OnInit {
 interface Size {
   size: string;
   quantity: number;
-  selected: boolean;
 }
 
 interface Product {

@@ -26,10 +26,11 @@ export class CarComponent implements OnInit {
     this.total = 0;
 
     this.items.forEach((item) => {
-      console.log(item);
       let priceForItem = 0;
       if (item.product.ofert === true) priceForItem = item.product.ofert_price;
       else priceForItem = item.product.price;
+
+      priceForItem *= item.quantity;
 
       this.subtotal += priceForItem;
     });

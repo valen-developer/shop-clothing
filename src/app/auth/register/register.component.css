@@ -1,7 +1,20 @@
-.go-home{
+.go-home {
   position: fixed;
   top: 10px;
   left: 10px;
   z-index: 1;
   cursor: pointer;
+}
+
+.modal-notify {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border-radius: 5px;
+  z-index: 1;
+  padding: 1rem 2rem;
+}
+.modal-notify p {
+  color: white;
 }

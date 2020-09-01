@@ -3,7 +3,7 @@
 </div>
 
 <div class="rows rows-sevenly custom-container fadeIn">
-  <div class="colm colm-w4 custom-table ">
+  <div class="colm colm-w4 custom-table">
     <h3>Cesta</h3>
     <hr />
 
@@ -18,7 +18,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
-          <th scope="row">{{ item.product.name }}</th>
+          <th scope="row">
+            <a routerLink="/product/{{ item.product.id }}">
+              {{ item.product.name }}
+            </a>
+          </th>
           <td>{{ item.size }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item | checkOfert }}€</td>

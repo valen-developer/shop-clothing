@@ -1,7 +1,11 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100 fadeIn">
-      <form class="login100-form validate-form">
+      <form
+        class="login100-form validate-form"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+      >
         <span class="login100-form-logo">
           <i class="zmdi zmdi-landscape"></i>
         </span>
@@ -17,6 +21,7 @@
             type="text"
             name="email"
             placeholder="Email"
+            formControlName="email"
           />
           <span class="focus-input100" data-placeholder="&#xf207;"></span>
         </div>
@@ -30,6 +35,7 @@
             type="password"
             name="pass"
             placeholder="Contraseña"
+            formControlName="password"
           />
           <span class="focus-input100" data-placeholder="&#xf191;"></span>
         </div>
@@ -45,9 +51,7 @@
         </div>
 
         <div class="container-login100-form-btn">
-          <button class="login100-form-btn" (click)="onSubmit($event)">
-            Registrar
-          </button>
+          <button class="login100-form-btn">Registrar</button>
         </div>
 
         <div class="text-center p-t-90">
@@ -56,6 +60,10 @@
       </form>
     </div>
   </div>
+</div>
+
+<div class="modal-notify fadeIn" id="modalnotify">
+  <p>{{ notify }}</p>
 </div>
 
 <app-go-home class="go-home" routerLink="/"></app-go-home>

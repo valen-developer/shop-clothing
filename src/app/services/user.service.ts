@@ -21,13 +21,13 @@ export class UserService {
       .post(`${this.urlbase}/login`, body)
       .toPromise();
 
-    if(resp.ok) this.setToken(resp.token);
+    if (resp.ok) this.setToken(resp.token);
 
     this.verifyLogged();
     return resp;
   }
 
-   async verifyLogged() {
+  async verifyLogged() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token);
     try {
@@ -37,9 +37,35 @@ export class UserService {
         })
         .toPromise();
       this.loggedObservable.next(resp.ok);
-      return { ok: resp.ok};
+      return { ok: resp.ok };
     } catch (error) {
       this.loggedObservable.next(false);
+      return { ok: false };
+    }
+  }
+
+  async registerUser(user: { email: string; password: string }) {
+    try {
+      const resp: any = await this.http
+        .post(`${this.urlbase}/register`, user)
+        .toPromise();
+      return resp;
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async checkRegister(registerToken) {
+    const headers = new HttpHeaders().set('token', registerToken);
+    try {
+      const resp: any = await this.http
+        .get(`${this.urlbase}/checkregister`, {
+          headers,
+        })
+        .toPromise();
+
+      return resp;
+    } catch (error) {
       return { ok: false };
     }
   }
