@@ -19,3 +19,11 @@
 a:hover {
   color: rgba(0, 0, 0, 0.7);
 }
+
+
+.btn-primary{
+  background-color: blue;
+}
+.btn-primary:hover{
+  background-color: rgba(0, 4, 255, 0.7);
+}

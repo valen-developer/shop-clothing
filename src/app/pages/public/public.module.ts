@@ -15,6 +15,7 @@ import { ShoeComponent } from './shoe/shoe.component';
 import { UserComponent } from './user/user.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CarComponent } from './car/car.component';
+import { PaymentComponent } from './payment/payment.component';
 
 // Pipes
 import { CheckOfertPipe } from '../../pipes/check-ofert.pipe';
@@ -34,6 +35,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ProductPageComponent,
     CarComponent,
     CheckOfertPipe,
+    PaymentComponent,
   ],
   exports: [
     PublicComponent,
@@ -46,6 +48,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ProductPageComponent,
     CarComponent,
     CheckOfertPipe,
+    PaymentComponent
   ],
   imports: [
     CommonModule,

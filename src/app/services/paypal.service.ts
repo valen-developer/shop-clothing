@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 
 import { paypal } from '../secrets/paypal.secret';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class PaypalService {
 
   private token = '';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.getAccessToken();
   }
 
@@ -52,9 +53,9 @@ export class PaypalService {
     this.token = resp.access_token;
   }
 
-  async createOrder(value: number) {
-    console.log(this.token);
-    console.log(btoa(this.token));
+  async createOrder(value: number, buyToken: string) {
+    const user = await this.userService.userLogged;
+
     const headers = new HttpHeaders()
       .set('Authorization', 'Bearer ' + this.token)
       .set('Content-Type', 'application/json')
@@ -64,8 +65,8 @@ export class PaypalService {
       intent: 'AUTHORIZE',
       purchase_units: [{ amount: { currency_code: 'EUR', value: value } }],
       application_context: {
-        return_url: 'http://localhost:3000/',
-        cancel_url: 'http://localhost:3000',
+        return_url: `http://localhost:3000/payment?confirm=true&id=${user.id}&buytoken=${buyToken}`,
+        cancel_url: `http://localhost:3000/payment?confirm=false&id${user.id}&buytoken=${buyToken}`,
         user_action: 'PAY_NOW',
         payment_method: { card: 'VISA' },
       },
@@ -75,7 +76,7 @@ export class PaypalService {
       .post(`${this.urlBase}/v2/checkout/orders`, requestBody, { headers })
       .toPromise();
 
-    window.open(resp.links[1].href);
+    window.location.href = resp.links[1].href;
   }
 
   async showDetailsOrder() {

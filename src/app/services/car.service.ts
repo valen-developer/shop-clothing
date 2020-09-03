@@ -34,6 +34,22 @@ export class CarService {
     this.produtsLengthController.next(this.itemsCar.length);
   }
 
+  deleteItemFromCar(item) {
+    let itemsAux = [];
+    this.itemsCar.forEach((itemInCar) => {
+      if (
+        !(
+          itemInCar.product.name === item.product.name &&
+          itemInCar.size === item.size
+        )
+      )
+        itemsAux.push(itemInCar);
+    });
+    this.itemsCar = itemsAux;
+    this.productsController.next(this.itemsCar);
+    this.produtsLengthController.next(this.itemsCar.length);
+  }
+
   private isInCar(product: Product): boolean {
     let returnAux = false;
     this.itemsCar.forEach((item) => {

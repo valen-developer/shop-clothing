@@ -7,6 +7,8 @@ import { SizesService } from './sizes.service';
 import { UserService } from './user.service';
 import { CarService } from './car.service';
 import { PaypalService } from './paypal.service';
+import { PaymentService } from "./payment.service";
+import { BuyService } from "./buy.service";
 
 @NgModule({
   declarations: [],
@@ -18,6 +20,8 @@ import { PaypalService } from './paypal.service';
     UserService,
     CarService,
     PaypalService,
+    PaymentService,
+    BuyService
   ],
 })
 export class ServicesModule {}

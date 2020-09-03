@@ -6,11 +6,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { ModalPassComponent } from './modal-pass/modal-pass.component';
 import { RegisterComponent } from './register/register.component';
+import { GoHomeComponent } from './shared/go-home/go-home.component';
+import { CheckRegisterComponent } from './check-register/check-register.component';
 
 //Routing
 import { AppRoutingModule } from '../app-routing.module';
-import { GoHomeComponent } from './shared/go-home/go-home.component';
-import { CheckRegisterComponent } from './check-register/check-register.component';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ModalPassComponent, GoHomeComponent, CheckRegisterComponent],

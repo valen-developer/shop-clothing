@@ -9,6 +9,7 @@ export class UserService {
   urlbase: string = 'http://localhost:3001/users';
   loggedObservable: BehaviorSubject<boolean>;
   logged: boolean = false;
+  userLogged;
 
   constructor(private http: HttpClient) {
     this.loggedObservable = new BehaviorSubject<boolean>(this.logged);
@@ -22,7 +23,6 @@ export class UserService {
       .toPromise();
 
     if (resp.ok) this.setToken(resp.token);
-
     this.verifyLogged();
     return resp;
   }
@@ -37,6 +37,7 @@ export class UserService {
         })
         .toPromise();
       this.loggedObservable.next(resp.ok);
+      this.setUser(resp.user);
       return { ok: resp.ok };
     } catch (error) {
       this.loggedObservable.next(false);
@@ -72,5 +73,15 @@ export class UserService {
 
   setToken(token) {
     localStorage.setItem('token', token);
+  }
+
+  private setUser(user) {
+    const userAux = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
+    this.userLogged = userAux;
   }
 }

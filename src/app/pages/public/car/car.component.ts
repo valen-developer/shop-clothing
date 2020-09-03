@@ -3,6 +3,9 @@ import { CarService } from 'src/app/services/car.service';
 import { PaypalService } from 'src/app/services/paypal.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { BuyService } from 'src/app/services/buy.service';
 
 @Component({
   selector: 'app-car',
@@ -19,7 +22,9 @@ export class CarComponent implements OnInit {
   constructor(
     private carService: CarService,
     private paypal: PaypalService,
-    private sanitizer: DomSanitizer
+    private buyService: BuyService,
+    private router: Router,
+    private userService: UserService
   ) {
     this.carService.productsController.subscribe((data) => {
       this.items = data;
@@ -27,14 +32,21 @@ export class CarComponent implements OnInit {
     });
   }
 
-  get getPaypalUrl() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.paypalUrl);
-  }
-
   ngOnInit(): void {}
 
   async makeOrder() {
-    if (this.items.length > 0) this.paypal.createOrder(this.total);
+    const resp = await this.buyService.createBuy();
+    const buyToken = resp.buyToken;
+
+    if ((await this.userService.verifyLogged()).ok) {
+      if (this.items.length > 0) this.paypal.createOrder(this.total, buyToken);
+    } else {
+      this.router.navigate(['/login/car']);
+    }
+  }
+
+  deleteFromCar(item) {
+    this.carService.deleteItemFromCar(item);
   }
 
   private setTotal() {

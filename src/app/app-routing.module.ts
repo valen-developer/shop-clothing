@@ -13,7 +13,7 @@ const routes: Routes = [
   //path: /dashboard -> protected routing
   //path: / -> public routing
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login/:returnPage', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'checkregister/:token', component: CheckRegisterComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },

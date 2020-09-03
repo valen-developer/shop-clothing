@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,16 +12,21 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   modalNotifyMessage: string = '';
+  private routeTo = 'home';
 
   constructor(
     private fb: FormBuilder,
     private usersService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       remember: [false],
+    });
+    route.params.forEach((param: any) => {
+      this.routeTo = param.returnPage;
     });
   }
 
@@ -40,7 +45,7 @@ export class LoginComponent implements OnInit {
     //Connect DB
     try {
       const resp = await this.usersService.login(dataForm);
-      this.router.navigate(['/home']);
+      this.router.navigate([`/${this.routeTo}`]);
     } catch (error) {
       this.showModalNotify('No se ha podido ingresar', false);
     }
