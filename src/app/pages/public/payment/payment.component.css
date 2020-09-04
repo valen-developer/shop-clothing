@@ -1,0 +1,19 @@
+.colm-center {
+  height: 80vh;
+  justify-content: space-around;
+}
+
+i {
+  font-size: 20rem;
+}
+
+i.success {
+  color: green;
+}
+
+i.failed{
+  color: red;
+}
+i.fa-spin{
+  color: purple;
+}

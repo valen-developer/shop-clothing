@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { CarService } from './car.service';
 import { UserService } from './user.service';
 
@@ -29,5 +30,27 @@ export class BuyService {
       .toPromise();
 
     return resp;
+  }
+
+  async addBuyID(buyID, buyToken) {
+    const body = {
+      buyID,
+      buyToken,
+    };
+
+    const resp: any = await this.http
+      .put(`${this.urlBase}/buy/paypalID`, body)
+      .toPromise();
+
+    return resp;
+  }
+
+  async getBuyByToken(buyToken) {
+    const params = new HttpParams().append('buyToken', buyToken);
+    const resp: any = await this.http
+      .get(`${this.urlBase}/buy`, { params })
+      .toPromise();
+
+    return resp.paypalID;
   }
 }

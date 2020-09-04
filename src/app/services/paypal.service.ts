@@ -65,8 +65,8 @@ export class PaypalService {
       intent: 'AUTHORIZE',
       purchase_units: [{ amount: { currency_code: 'EUR', value: value } }],
       application_context: {
-        return_url: `http://localhost:3000/payment?confirm=true&id=${user.id}&buytoken=${buyToken}`,
-        cancel_url: `http://localhost:3000/payment?confirm=false&id${user.id}&buytoken=${buyToken}`,
+        return_url: `http://localhost:3000/payment?confirm=true&id=${user.id}&buytoken=${buyToken}&value=${value}`,
+        cancel_url: `http://localhost:3000/payment?confirm=false&id${user.id}&buytoken=${buyToken}&value=${value}`,
         user_action: 'PAY_NOW',
         payment_method: { card: 'VISA' },
       },
@@ -76,18 +76,25 @@ export class PaypalService {
       .post(`${this.urlBase}/v2/checkout/orders`, requestBody, { headers })
       .toPromise();
 
-    window.location.href = resp.links[1].href;
+    return resp;
   }
 
-  async showDetailsOrder() {
-    const idorder = '5R246860WE699271W';
-    const url = `${this.urlBase}/v2/checkout/orders/${idorder}`;
+  async showDetailsOrder(orderID) {
+    await this.getAccessToken();
 
+    const url = `${this.urlBase}/v2/checkout/orders/${orderID}`;
     const headers = new HttpHeaders()
       .set('Authorization', 'Bearer ' + this.token)
       .set('Content-Type', 'application/json');
 
-    const resp: any = await this.http.get(url, { headers }).toPromise();
-    console.log(resp);
+    try {
+      const resp: any = await this.http.get(url, { headers }).toPromise();
+      return { ok: true, resp };
+    } catch (error) {
+      return { ok: false, error };
+      console.log(error);
+    }
   }
+
+
 }

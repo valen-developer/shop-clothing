@@ -35,11 +35,14 @@ export class CarComponent implements OnInit {
   ngOnInit(): void {}
 
   async makeOrder() {
-    const resp = await this.buyService.createBuy();
-    const buyToken = resp.buyToken;
-
-    if ((await this.userService.verifyLogged()).ok) {
-      if (this.items.length > 0) this.paypal.createOrder(this.total, buyToken);
+    if ((await this.userService.verifyLogged()).ok && this.items.length > 0) {
+      const resp = await this.buyService.createBuy();
+      const buyToken = resp.buyToken;
+      const paypalResp = await this.paypal.createOrder(this.total, buyToken);
+      const buyID = paypalResp.id;
+      console.log(buyID);
+      const updateBuyResp = await this.buyService.addBuyID(buyID, buyToken);
+      window.location.href = paypalResp.links[1].href;
     } else {
       this.router.navigate(['/login/car']);
     }

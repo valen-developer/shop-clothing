@@ -1,1 +1,14 @@
-<p>payment works!</p>
+<div>
+  <div class="colm colm-center" *ngIf="approved">
+    <h4>El pago a sido con exito</h4>
+    <i class="fas fa-check success" id="success"></i>
+  </div>
+  <div class="colm colm-center" *ngIf="!approved && buystate === 'failed'">
+    <h4>No se ha realizado el pago correctamente</h4>
+    <i class="far fa-times-circle failed"></i>
+  </div>
+  <div class="colm colm-center" *ngIf="buystate === ''">
+    <h4>Cargando</h4>
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</div>
