@@ -16,6 +16,24 @@ export class BuyService {
     private userService: UserService
   ) {}
 
+  async getBuyByUserID(userID) {
+    const params = new HttpParams().set('userID', userID);
+    const resp: any = await this.http
+      .get(`${this.urlBase}/buy/all`, { params })
+      .toPromise();
+
+    return resp;
+  }
+
+  async getBuyByToken(buyToken) {
+    const params = new HttpParams().append('buyToken', buyToken);
+    const resp: any = await this.http
+      .get(`${this.urlBase}/buy`, { params })
+      .toPromise();
+
+    return resp.paypalID;
+  }
+
   async createBuy() {
     const items = this.carService.car;
     const user = this.userService.userLogged;
@@ -43,14 +61,5 @@ export class BuyService {
       .toPromise();
 
     return resp;
-  }
-
-  async getBuyByToken(buyToken) {
-    const params = new HttpParams().append('buyToken', buyToken);
-    const resp: any = await this.http
-      .get(`${this.urlBase}/buy`, { params })
-      .toPromise();
-
-    return resp.paypalID;
   }
 }

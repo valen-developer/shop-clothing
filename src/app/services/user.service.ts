@@ -38,7 +38,7 @@ export class UserService {
         .toPromise();
       this.loggedObservable.next(resp.ok);
       this.setUser(resp.user);
-      return { ok: resp.ok };
+      return { ok: resp.ok, user: resp.user };
     } catch (error) {
       this.loggedObservable.next(false);
       return { ok: false };

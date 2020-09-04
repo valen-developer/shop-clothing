@@ -27,13 +27,20 @@
           <td>{{ item.size }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item | checkOfert }}€</td>
-          <td><button class="btn btn-danger btn-block" (click)="deleteFromCar(item)" >Eliminar</button></td>
+          <td>
+            <button
+              class="btn btn-danger btn-block"
+              (click)="deleteFromCar(item)"
+            >
+              Eliminar
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="colm">
+  <div class="colm car-detail">
     <h3>Resumen de compra</h3>
     <hr />
     <div class="rows rows-sbet">
@@ -51,7 +58,7 @@
     </div>
     <hr />
     <button class="btn btn-primary btn-bloc" (click)="makeOrder()">
-      Obtener token
+      Pagar con Paypal
     </button>
   </div>
 </div>
