@@ -35,9 +35,7 @@ export class UserComponent implements OnInit {
     const logged = await this.userService.verifyLogged();
     if (logged.ok) {
       this.user = logged.user;
-      return true;
     } else this.router.navigate(['/login']);
-    return false;
   }
 
   private async getPayments() {
@@ -75,6 +73,7 @@ export class UserComponent implements OnInit {
         id: payment.id,
         paypalID: payment.paypal_id,
         state: payment.state,
+        date: payment.date,
       };
       this.payments.push(paymentAux);
     });
@@ -130,4 +129,5 @@ interface Payment {
   id: number;
   paypalID: number;
   state: string;
+  date: number;
 }

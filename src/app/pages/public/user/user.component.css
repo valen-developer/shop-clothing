@@ -1,0 +1,26 @@
+.header{
+    margin: 4rem 3rem;
+}
+@media only screen and (max-width: 500px){
+    /* .header{
+        flex-direction: column;
+    } */
+    .header img{
+        width: 150px;
+        margin: 2rem;
+    }
+}
+.header img{
+    border-radius: 100%;
+}
+.profile-data{
+    margin-left: 1rem;
+}
+.profile-data h4{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.table-darks{
+    background-color: black !important;
+    color: white;
+}

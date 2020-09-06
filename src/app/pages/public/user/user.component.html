@@ -1,1 +1,33 @@
-user works
+<div class="colm">
+  <div class="rows rows-sarround header">
+    <img src="../../../../assets/img/no-img.jpg" alt="" />
+    <div class="colm colm-w4 profile-data">
+      <h4>{{ user.name }}</h4>
+      <p>
+        Dirección: <span>{{ user.addr }}</span>
+      </p>
+      <p>
+        Email: <span>{{ user.email }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="rows rows-center">
+    <div class="rows-w6">
+      <table class="table">
+        <thead class="table-darks">
+          <th>Fecha</th>
+          <th>Importe</th>
+          <th>Estado</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of payments">
+            <td>{{ payment.date | date }}</td>
+            <td>{{ payment.amount }}€</td>
+            <td>{{ payment.state | payment }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

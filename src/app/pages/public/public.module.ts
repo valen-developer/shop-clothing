@@ -19,6 +19,7 @@ import { PaymentComponent } from './payment/payment.component';
 
 // Pipes
 import { CheckOfertPipe } from '../../pipes/check-ofert.pipe';
+import { PaymentPipe } from "../../pipes/payment.pipe";
 
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -35,6 +36,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ProductPageComponent,
     CarComponent,
     CheckOfertPipe,
+    PaymentPipe,
     PaymentComponent,
   ],
   exports: [
@@ -48,6 +50,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ProductPageComponent,
     CarComponent,
     CheckOfertPipe,
+    PaymentPipe,
     PaymentComponent
   ],
   imports: [

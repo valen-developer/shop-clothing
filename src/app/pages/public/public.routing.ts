@@ -10,6 +10,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { CarComponent } from './car/car.component';
 import { PaymentComponent } from './payment/payment.component';
 
+
 const publicRoutes: Routes = [
   {
     path: '',
