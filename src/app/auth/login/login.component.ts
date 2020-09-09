@@ -41,13 +41,20 @@ export class LoginComponent implements OnInit {
     if (dataForm.remember) this.rememberEmail();
     else this.notRememberEmail();
 
-    // TODO:
-    //Connect DB
-    try {
-      const resp = await this.usersService.login(dataForm);
-      this.router.navigate([`/${this.routeTo}`]);
-    } catch (error) {
-      this.showModalNotify('No se ha podido ingresar', false);
+    if (this.loginForm.valid) {
+      // TODO:
+      //Connect DB
+      try {
+        const resp = await this.usersService.login(dataForm);
+        console.log(resp);
+        this.router.navigate([`/${this.routeTo}`]);
+      } catch (error) {
+        console.log(error);
+        this.showModalNotify('No se ha podido ingresar', false);
+      }
+    } else {
+      this.showModalNotify('Rellena los campos', false);
+      console.log('no valido');
     }
   }
 

@@ -9,6 +9,7 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class NavbarPublicComponent implements OnInit {
   logged: boolean = false;
+  admin: boolean = false;
   itemsInCar: number = 0;
 
   constructor(
@@ -18,6 +19,11 @@ export class NavbarPublicComponent implements OnInit {
     this.userService.loggedObservable.subscribe((logState) => {
       this.logged = logState;
     });
+    this.userService.adminObservable.subscribe((role) => {
+      console.log('admin si o no');
+      console.log(role);
+      this.admin = role;
+    });
     this.carService.produtsLengthController.subscribe((length) => {
       this.itemsInCar = length;
     });
@@ -25,9 +31,11 @@ export class NavbarPublicComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logOut() {
+  async logOut() {
     localStorage.setItem('token', '');
-    this.userService.verifyLogged();
-    this.carService.clearCar();
+    await this.carService.clearCar();
+    await this.userService.verifyLogged();
+    console.log('====== EJECUTAMOS ROLE =========');
+    await this.userService.verifyRole();
   }
 }

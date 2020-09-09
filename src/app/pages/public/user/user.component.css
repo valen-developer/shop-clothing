@@ -19,8 +19,19 @@
 .profile-data h4{
     text-align: center;
     margin-bottom: 1rem;
+    color: black;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.profile-data span{
+  margin-top: 1rem;
 }
 .table-darks{
     background-color: black !important;
     color: white;
 }
+h3{
+  text-align: center;
+  font-size: 2rem;
+}
+

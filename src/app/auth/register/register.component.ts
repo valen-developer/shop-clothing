@@ -13,6 +13,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.registerForm = fb.group({
+      name: ['', [Validators.required]],
+      addr: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
@@ -21,14 +23,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   async onSubmit() {
-    const resp = await this.userService.registerUser(this.registerForm.value);
-
-    if (resp.ok)
-      this.showModalNotify(
-        resp.ok,
-        'Email enviado. Revisa tu bandeja de entrada'
-      );
-    else this.showModalNotify(resp.ok, 'Mail no se ha podido enviar');
+    if (this.registerForm.valid) {
+      const resp = await this.userService.registerUser(this.registerForm.value);
+      if (resp.ok)
+        this.showModalNotify(
+          resp.ok,
+          'Email enviado. Revisa tu bandeja de entrada'
+        );
+      else this.showModalNotify(resp.ok, 'Mail no se ha podido enviar');
+    }
   }
 
   private showModalNotify(ok: boolean, message: string) {

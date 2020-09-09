@@ -10,6 +10,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { CarComponent } from './car/car.component';
 import { PaymentComponent } from './payment/payment.component';
 
+// Guards
+import { LogGuard } from 'src/app/guards/log.guard';
 
 const publicRoutes: Routes = [
   {
@@ -19,7 +21,7 @@ const publicRoutes: Routes = [
       { path: 'home', component: HomePublicComponent },
       { path: 'jacket', component: JacketComponent },
       { path: 'shoe', component: ShoeComponent },
-      { path: 'user', component: UserComponent },
+      { path: 'user', component: UserComponent, canActivate: [LogGuard] },
       { path: 'car', component: CarComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'product/:id', component: ProductPageComponent },

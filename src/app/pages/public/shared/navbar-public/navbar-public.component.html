@@ -1,15 +1,21 @@
 <nav class="nav top">
   <div class="top-container">
-    <a *ngIf="!logged" class="top-item" routerLink="/login/home">Únete/Accede</a>
+    <a *ngIf="!logged" class="top-item" routerLink="/login/home"
+      >Únete/Accede</a
+    >
     <a *ngIf="logged" class="top-item" routerLink="/user">Ir a Mi Perfil</a>
     <div>
       <a class="top-item" routerLink="/car"
         ><i class="fas fa-cart-arrow-down">
-          <div  *ngIf="itemsInCar > 0" class="badget" >{{ itemsInCar }}</div>
+          <div *ngIf="itemsInCar > 0" class="badget">{{ itemsInCar }}</div>
         </i>
       </a>
     </div>
-    <a *ngIf="logged" class="top-item" routerLink="/login/home" (click)="logOut()"
+    <a
+      *ngIf="logged"
+      class="top-item"
+      routerLink="/login/home"
+      (click)="logOut()"
       >Cerrar Sesión</a
     >
   </div>
@@ -29,5 +35,12 @@
     routerLinkActive="active"
     routerLink="/user"
     >Mi perfil</a
+  >
+  <a
+    *ngIf="admin"
+    class="nav-item"
+    routerLinkActive="active"
+    routerLink="/dashboard"
+    >Panel Administrador</a
   >
 </nav>

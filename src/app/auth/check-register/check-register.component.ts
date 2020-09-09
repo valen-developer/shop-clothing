@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class CheckRegisterComponent implements OnInit {
   registerToken;
   message = 'Comprobando Email';
+  verified: boolean = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,10 +29,13 @@ export class CheckRegisterComponent implements OnInit {
   private async checkRegister() {
     const resp: any = await this.userService.checkRegister(this.registerToken);
     if (resp.ok) this.router.navigate(['/login']);
-    else
+    else {
       this.message =
         'No se ha podido verificar el email. Esto puede deberse a 2 motivos: ' +
-        'Ha caducado el tiempo de verificación, por lo que deberá hacer de nuevo el proceso de registro. ' +
-        'El email ya se encuentra registrado, pruebe a iniciar sesion.';
+        'Ha caducado el tiempo de verificación, por lo que deberá hacer de nuevo el proceso de registro, ' +
+        'o el email ya se encuentra registrado, pruebe a iniciar sesion.';
+
+      this.verified = false;
+    }
   }
 }

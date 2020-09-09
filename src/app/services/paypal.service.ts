@@ -54,7 +54,7 @@ export class PaypalService {
   }
 
   async createOrder(value: number, buyToken: string) {
-    const user = await this.userService.userLogged;
+    const user = await this.userService.user;
 
     const headers = new HttpHeaders()
       .set('Authorization', 'Bearer ' + this.token)
@@ -95,6 +95,4 @@ export class PaypalService {
       console.log(error);
     }
   }
-
-
 }

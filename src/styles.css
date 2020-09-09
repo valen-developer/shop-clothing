@@ -11,6 +11,9 @@ body {
 .colm-center {
   align-items: center;
 }
+.colm-sarround{
+  justify-content: space-around;
+}
 .colm-w10 {
   width: 100%;
 }
@@ -50,7 +53,7 @@ body {
 
 .fadeIn {
   animation-name: fadein;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 @keyframes fadein {
   from {
@@ -62,7 +65,7 @@ body {
 }
 .fadeOut {
   animation-name: fadeout;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 @keyframes fadeout {

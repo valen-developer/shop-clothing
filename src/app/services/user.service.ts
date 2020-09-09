@@ -8,12 +8,23 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class UserService {
   urlbase: string = 'http://localhost:3001/users';
   loggedObservable: BehaviorSubject<boolean>;
+  adminObservable: BehaviorSubject<boolean>;
   logged: boolean = false;
-  userLogged;
+  admin: boolean = false;
+  private userLogged: User;
 
   constructor(private http: HttpClient) {
     this.loggedObservable = new BehaviorSubject<boolean>(this.logged);
+    this.adminObservable = new BehaviorSubject<boolean>(this.admin);
     this.verifyLogged();
+  }
+
+  get user() {
+    return this.userLogged;
+  }
+
+  cleanUser(user) {
+    this.userLogged = user;
   }
 
   async login(user: { email: string; password: string }) {
@@ -24,6 +35,7 @@ export class UserService {
 
     if (resp.ok) this.setToken(resp.token);
     this.verifyLogged();
+    this.verifyRole();
     return resp;
   }
 
@@ -37,7 +49,9 @@ export class UserService {
         })
         .toPromise();
       this.loggedObservable.next(resp.ok);
-      this.setUser(resp.user);
+      this.userLogged = resp.user;
+      this.verifyRole();
+
       return { ok: resp.ok, user: resp.user };
     } catch (error) {
       this.loggedObservable.next(false);
@@ -45,7 +59,18 @@ export class UserService {
     }
   }
 
-  async registerUser(user: { email: string; password: string }) {
+  async verifyRole() {
+    if (this.userLogged === undefined) this.adminObservable.next(false);
+    if (this.userLogged.role === 'ADMIN_ROLE') this.adminObservable.next(true);
+    else this.adminObservable.next(false);
+  }
+
+  async registerUser(user: {
+    name: string;
+    address: string;
+    email: string;
+    password: string;
+  }) {
     try {
       const resp: any = await this.http
         .post(`${this.urlbase}/register`, user)
@@ -74,14 +99,11 @@ export class UserService {
   setToken(token) {
     localStorage.setItem('token', token);
   }
+}
 
-  private setUser(user) {
-    const userAux = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    };
-
-    this.userLogged = userAux;
-  }
+interface User {
+  id: number;
+  name: string;
+  addr: string;
+  role: string;
 }

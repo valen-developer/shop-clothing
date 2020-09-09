@@ -1,0 +1,16 @@
+.colm {
+  height: 100%;
+  justify-content: space-evenly;
+}
+i {
+  font-size: 5rem;
+  color: red;
+}
+
+.message {
+  padding: 1rem;
+  border: 2px solid red;
+  border-radius: 5px;
+  width: 40%;
+  text-align: justify;
+}

@@ -1,1 +1,7 @@
-<h1>{{ message }}</h1>
+<app-navbar-public></app-navbar-public>
+<div *ngIf="!verified" class="colm colm-center">
+  <i class="fas fa-exclamation-circle"></i>
+  <div class="message">
+    {{ message }}
+  </div>
+</div>

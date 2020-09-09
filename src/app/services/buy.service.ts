@@ -36,7 +36,7 @@ export class BuyService {
 
   async createBuy() {
     const items = this.carService.car;
-    const user = this.userService.userLogged;
+    const user = this.userService.user;
 
     const body = {
       items,

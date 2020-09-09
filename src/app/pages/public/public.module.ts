@@ -4,13 +4,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Custom Modules
 import { ComponentsModule } from '../../components/components.module';
+import { AuthModule } from '../../auth/auth.module';
 
 // Components
 import { HomePublicComponent } from './home-public/home-public.component';
 import { JacketComponent } from './jacket/jacket.component';
 import { PublicComponent } from './public.component';
 import { CardComponent } from './shared/card/card.component';
-import { NavbarPublicComponent } from './shared/navbar-public/navbar-public.component';
 import { ShoeComponent } from './shoe/shoe.component';
 import { UserComponent } from './user/user.component';
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -19,7 +19,7 @@ import { PaymentComponent } from './payment/payment.component';
 
 // Pipes
 import { CheckOfertPipe } from '../../pipes/check-ofert.pipe';
-import { PaymentPipe } from "../../pipes/payment.pipe";
+import { PaymentPipe } from '../../pipes/payment.pipe';
 
 // Routing
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -28,7 +28,6 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
   declarations: [
     PublicComponent,
     HomePublicComponent,
-    NavbarPublicComponent,
     JacketComponent,
     ShoeComponent,
     UserComponent,
@@ -42,7 +41,6 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
   exports: [
     PublicComponent,
     HomePublicComponent,
-    NavbarPublicComponent,
     JacketComponent,
     ShoeComponent,
     UserComponent,
@@ -51,7 +49,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     CarComponent,
     CheckOfertPipe,
     PaymentPipe,
-    PaymentComponent
+    PaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +57,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
+    AuthModule,
   ],
 })
 export class PublicModule {}

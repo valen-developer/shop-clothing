@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProtectedModule } from './pages/protected/protected.module';
 import { PublicModule } from './pages/public/public.module';
 import { ServicesModule } from './services/services.module';
-
+import { GuardModule } from './guards/guard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +25,7 @@ import { ServicesModule } from './services/services.module';
     ReactiveFormsModule,
     FormsModule,
     ServicesModule,
+    GuardModule
   ],
   exports: [],
   providers: [],
